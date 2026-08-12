@@ -58,7 +58,7 @@ const itemVariants: Variants = {
 
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] transition-colors duration-300">
+    <section className="relative pl-[4%] w-full overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] transition-colors duration-300">
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent" />
       {/*
@@ -85,7 +85,7 @@ export function HeroSection() {
           {/* 2 · Display Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-heading text-5xl sm:text-6xl xl:text-[4.25rem] font-bold tracking-tight leading-[1.06] text-slate-900 dark:text-white"
+            className="font-heading text-4xl sm:text-5xl xl:text-[3.5rem] font-bold tracking-tight leading-[1.06] text-slate-900 dark:text-white"
           >
             Engineering{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-violet-400 to-violet-500 dark:from-cyan-400 dark:via-violet-400 dark:to-violet-500 light:from-teal-500 light:via-blue-600 light:to-violet-600 bg-clip-text text-transparent">
@@ -101,7 +101,7 @@ export function HeroSection() {
           {/* 3 · Subheadline */}
           <motion.p
             variants={itemVariants}
-            className="text-lg md:text-xl leading-relaxed text-slate-600 dark:text-slate-300 max-w-xl"
+            className="text-[1rem] md:text-[1.1rem] leading-relaxed text-slate-600 dark:text-slate-300 max-w-xl"
           >
             AuraGen&apos;s precision bio-platform synthesises next-generation
             therapeutics through hardware-accelerated CRISPR editing,
@@ -137,7 +137,7 @@ export function HeroSection() {
               <button
                 key={tag}
                 className={cn(
-                  "px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 cursor-pointer select-none",
+                  "px-3.5 py-1.5 rounded-full text-[0.7rem] font-medium border transition-all duration-200 cursor-pointer select-none",
                   // Light base
                   "border-slate-200 bg-slate-50 text-slate-600",
                   // Dark base
@@ -164,7 +164,7 @@ export function HeroSection() {
                   <div className="w-px h-10 bg-slate-200 dark:bg-white/10 mx-6" />
                 )}
                 <div className="flex flex-col">
-                  <span className="font-heading text-2xl font-bold text-slate-900 dark:text-white tabular-nums">
+                  <span className="font-heading text-[1.2rem] font-bold text-slate-900 dark:text-white tabular-nums">
                     {metric.value}
                   </span>
                   <span className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-tight">

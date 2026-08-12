@@ -36,7 +36,7 @@ export function Navbar() {
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         className={cn(
           // Position & shape
-          "fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-50",
+          "fixed top-4 left-1/2 -translate-x-1/2 w-[92%]  z-50",
           "rounded-full border backdrop-blur-xl",
           "px-6 py-3 transition-all duration-300",
           // Light mode

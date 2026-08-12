@@ -54,7 +54,7 @@ function NarrativeReveal() {
 
   return (
     <div ref={targetRef} className="my-8 max-w-4xl">
-      <p className="font-heading text-2xl sm:text-3xl md:text-4xl font-semibold leading-relaxed tracking-tight text-slate-800 dark:text-slate-100">
+      <p className="font-heading text-xl sm:text-2xl md:text-3xl font-semibold leading-relaxed tracking-tight text-slate-800 dark:text-slate-100">
         {words.map((word, i) => (
           <WordReveal
             key={i}
@@ -135,10 +135,10 @@ export function AboutSection() {
   const [isHoveredCard1, setIsHoveredCard1] = useState(false);
 
   return (
-    <section id="about" className="relative w-full dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300">
+    <section id="about" className="relative px-[4%] w-full dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300">
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent" />
-      <div className="max-w-7xl mx-auto px-6 py-24 sm:py-32">
+      <div className=" py-20 sm:py-24">
         
         {/* ── 1. Section Header & Narrative Reveal ─────────────────────────── */}
         <div className="flex flex-col gap-4">
@@ -146,7 +146,7 @@ export function AboutSection() {
             <Badge variant="muted">OUR INNOVATION PARADIGM</Badge>
           </div>
 
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl leading-[1.1]">
+          <h2 className="font-heading text-4xl sm:text-5xl xl:text-[3.5rem] font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl leading-[1.1]">
             Unlocking the precision code of{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-violet-500 dark:from-cyan-400 dark:via-teal-400 dark:to-violet-500 bg-clip-text text-transparent">
               human cellular biology.
@@ -177,12 +177,12 @@ export function AboutSection() {
                 <div className="w-12 h-12 rounded-2xl bg-teal-500/10 dark:bg-cyan-400/10 border border-teal-500/20 dark:border-cyan-400/20 flex items-center justify-center text-teal-600 dark:text-cyan-400">
                   <Activity className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-semibold uppercase tracking-wider text-teal-600 dark:text-cyan-400 bg-teal-500/10 dark:bg-cyan-400/10 border border-teal-500/20 dark:border-cyan-400/20 px-3 py-1 rounded-full">
+                <span className="text-[0.7rem] font-semibold uppercase tracking-wider text-teal-600 dark:text-cyan-400 bg-teal-500/10 dark:bg-cyan-400/10 border border-teal-500/20 dark:border-cyan-400/20 px-3 py-1 rounded-full">
                   Timeline Compression
                 </span>
               </div>
 
-              <h3 className="font-heading text-2xl font-bold text-slate-900 dark:text-white mb-3">
+              <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">
                 AI-Accelerated Target Identification
               </h3>
 
@@ -240,10 +240,10 @@ export function AboutSection() {
             {/* Card Header */}
             <div className="flex items-center justify-between mb-4 z-10">
               <div>
-                <span className="text-xs font-semibold uppercase tracking-wider text-teal-600 dark:text-cyan-400">
+                <span className="text-[0.7rem] font-semibold uppercase tracking-wider text-teal-600 dark:text-cyan-400">
                   Targeting Architecture
                 </span>
-                <h3 className="font-heading text-2xl font-bold text-slate-900 dark:text-white">
+                <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white">
                   Radial Research Network
                 </h3>
               </div>
@@ -260,11 +260,11 @@ export function AboutSection() {
                 <motion.div
                   animate={{ scale: [1, 1.06, 1] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-20 h-20 rounded-full bg-gradient-to-tr from-teal-500 to-blue-600 dark:from-cyan-400 dark:to-teal-400 p-0.5 shadow-[0_0_30px_rgba(0,242,254,0.4)] flex items-center justify-center cursor-pointer"
+                  className="w-18 h-18 rounded-full bg-gradient-to-tr from-teal-500 to-blue-600 dark:from-cyan-400 dark:to-teal-400 p-0.5 shadow-[0_0_30px_rgba(0,242,254,0.4)] flex items-center justify-center cursor-pointer"
                 >
                   <div className="w-full h-full rounded-full bg-white dark:bg-[#0A0D14] flex flex-col items-center justify-center p-2 text-center">
-                    <Layers className="w-6 h-6 text-teal-600 dark:text-cyan-400 mb-0.5" />
-                    <span className="text-[10px] font-bold font-heading text-slate-900 dark:text-white tracking-tight">
+                    <Layers className="w-4 h-4 text-teal-600 dark:text-cyan-400 mb-0.5" />
+                    <span className="text-[0.6rem] font-bold font-heading text-slate-900 dark:text-white tracking-tight">
                       AuraCore
                     </span>
                   </div>
@@ -353,7 +353,7 @@ export function AboutSection() {
                     >
                       <IconComponent className="w-4 h-4" />
                     </div>
-                    <span className="text-xs font-semibold whitespace-nowrap hidden sm:inline">
+                    <span className="text-[0.7rem] font-semibold whitespace-nowrap hidden sm:inline">
                       {vector.name}
                     </span>
                   </button>
@@ -389,9 +389,9 @@ export function AboutSection() {
             <div className="flex flex-col gap-2 p-4 rounded-2xl bg-slate-50/50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5">
               <div className="flex items-center gap-2 text-teal-600 dark:text-cyan-400">
                 <Zap className="w-4 h-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Screening Speed</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-wider">Screening Speed</span>
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <div className="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 10x
               </div>
               <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">
@@ -406,9 +406,9 @@ export function AboutSection() {
             <div className="flex flex-col gap-2 p-4 rounded-2xl bg-slate-50/50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5">
               <div className="flex items-center gap-2 text-teal-600 dark:text-cyan-400">
                 <ShieldCheck className="w-4 h-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Fidelity & Safety</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-wider">Fidelity & Safety</span>
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <div className="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 &lt; 0.01%
               </div>
               <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">
@@ -423,9 +423,9 @@ export function AboutSection() {
             <div className="flex flex-col gap-2 p-4 rounded-2xl bg-slate-50/50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5">
               <div className="flex items-center gap-2 text-teal-600 dark:text-cyan-400">
                 <Target className="w-4 h-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Target Conformation</span>
+                <span className="text-[0.65rem] font-bold uppercase tracking-wider">Target Conformation</span>
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <div className="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 100%
               </div>
               <div className="text-xs font-semibold text-slate-700 dark:text-slate-200">

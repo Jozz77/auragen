@@ -410,11 +410,11 @@ export function TechSection() {
   return (
     <section
       id="technology"
-      className="relative w-full py-28 transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]"
+      className="relative w-full py-24 px-[4%] transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]"
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className=" relative z-10">
 
         {/* ── Section Header ─────────────────────────────────────────────── */}
         <div className="flex flex-col gap-4 max-w-3xl mb-16">
@@ -422,14 +422,14 @@ export function TechSection() {
             <Badge variant="default">PROPRIETARY TECH STACK</Badge>
           </div>
 
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] text-balance">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] text-balance">
             AI-powered molecular{" "}
             <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
               engineering engine.
             </span>
           </h2>
 
-          <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="text-[1.12rem] text-slate-600 dark:text-slate-300 leading-relaxed">
             From genomic sequence decoding to synthetic cell delivery in four integrated phases.
           </p>
         </div>

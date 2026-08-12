@@ -57,7 +57,7 @@ export function CtaSection() {
           </div>
 
           {/* Headline */}
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
             Accelerate your drug discovery{" "}
             <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
               timeline today.
@@ -65,7 +65,7 @@ export function CtaSection() {
           </h2>
 
           {/* Subheadline */}
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-[1rem] text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10">
             Partner with AuraGen to deploy proprietary multi-omic AI models and targeted vectoring to your therapeutic pipeline.
           </p>
 

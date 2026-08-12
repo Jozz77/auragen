@@ -24,7 +24,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "group relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold tracking-wide cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary select-none overflow-hidden transition-all duration-300";
+      "group relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[0.75rem] font-bold tracking-wide cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary select-none overflow-hidden transition-all duration-300";
 
     const variantStyles = {
       primary:

@@ -136,7 +136,7 @@ function CapabilityCard({ item }: { item: CapabilityItem }) {
       <div>
         <div className="flex items-center justify-between mb-6">
           <div className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 bg-teal-50 dark:bg-cyan-500/10 text-teal-600 dark:text-cyan-400 border border-teal-500/20 dark:border-cyan-400/20 shadow-sm">
-            <IconComponent className="w-6 h-6" />
+            <IconComponent className="w-5 h-5" />
           </div>
 
           <div className="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 group-hover:text-teal-600 dark:group-hover:text-cyan-400 group-hover:border-teal-500/40 dark:group-hover:border-cyan-400/40 transition-colors">
@@ -145,22 +145,22 @@ function CapabilityCard({ item }: { item: CapabilityItem }) {
         </div>
 
         {/* Title */}
-        <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+        <h3 className="font-heading text-[1.1rem] font-bold text-slate-900 dark:text-white mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
           {item.title}
         </h3>
 
         {/* Description */}
-        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+        <p className="text-[0.8rem] leading-relaxed text-slate-600 dark:text-slate-300">
           {item.description}
         </p>
       </div>
 
       {/* Micro Metric Pill Footer */}
-      <div className="mt-8 pt-4 border-t border-slate-200/60 dark:border-white/5 flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+      <div className="mt-4 pt-4 border-t border-slate-200/60 dark:border-white/5 flex items-center justify-between">
+        <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
           METRIC SPEC
         </span>
-        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-teal-500/10 dark:bg-cyan-400/10 border border-teal-500/20 dark:border-cyan-400/20 text-teal-700 dark:text-cyan-400 group-hover:shadow-[0_0_12px_rgba(0,242,254,0.25)] transition-shadow">
+        <span className="text-[0.65rem] font-semibold px-3 py-1 rounded-full bg-teal-500/10 dark:bg-cyan-400/10 border border-teal-500/20 dark:border-cyan-400/20 text-teal-700 dark:text-cyan-400 group-hover:shadow-[0_0_12px_rgba(0,242,254,0.25)] transition-shadow">
           {item.metric}
         </span>
       </div>
@@ -174,11 +174,11 @@ export function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className="relative w-full dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300 py-28 overflow-hidden"
+      className="relative w-full py-24 px-[4%] overflow-hidden dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300 py-24 px-[4%] overflow-hidden"
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className=" relative z-10">
 
         {/* ── Section Header ─────────────────────────────────────────────── */}
         <div className="flex flex-col gap-4 max-w-3xl mb-16">
@@ -186,7 +186,7 @@ export function CapabilitiesSection() {
             <Badge variant="muted">PLATFORM CAPABILITIES</Badge>
           </div>
 
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08]">
             End-to-end cellular{" "}
             <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
               engineering solutions.

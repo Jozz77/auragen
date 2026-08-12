@@ -73,7 +73,7 @@ export function ImpactSection() {
   return (
     <section
       id="impact"
-      className="relative w-full py-28 transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC]"
+      className="relative w-full py-24 px-[4%] transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC]"
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
@@ -88,14 +88,14 @@ export function ImpactSection() {
             <Badge variant="default">MEASURABLE IMPACT</Badge>
           </div>
 
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08]">
             Quantifiable breakthroughs in{" "}
             <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
               therapeutic delivery.
             </span>
           </h2>
 
-          <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="text-[1rem] text-slate-600 dark:text-slate-300 leading-relaxed">
             Validating clinical efficacy, speed, and precision across multi-omic discovery pipelines.
           </p>
         </div>
@@ -121,7 +121,7 @@ export function ImpactSection() {
                 </div>
               </div>
 
-              <div className="font-heading text-4xl sm:text-5xl text-slate-900 dark:text-white mb-2">
+              <div className="font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
                 <AnimatedCounter to={99.4} decimals={1} suffix="%" />
               </div>
 
@@ -155,7 +155,7 @@ export function ImpactSection() {
           {/* Stat 2: Velocity */}
           <div
             className={cn(
-              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group shadow-xl",
+              "rounded-3xl p-6 border flex flex-col justify-between transition-all duration-300 group shadow-xl",
               "bg-white border-slate-300/80 hover:border-slate-400",
               "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
@@ -170,7 +170,7 @@ export function ImpactSection() {
                 </div>
               </div>
 
-              <div className="font-heading text-4xl sm:text-5xl text-slate-900 dark:text-white mb-2">
+              <div className="font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
                 <AnimatedCounter to={10} suffix="x" />
               </div>
 
@@ -210,7 +210,7 @@ export function ImpactSection() {
                 </div>
               </div>
 
-              <div className="font-heading text-4xl sm:text-5xl text-slate-900 dark:text-white mb-2">
+              <div className="font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
                 <AnimatedCounter to={140000} suffix="+" />
               </div>
 
@@ -252,7 +252,7 @@ export function ImpactSection() {
                 </div>
               </div>
 
-              <div className="font-heading text-4xl sm:text-5xl text-slate-900 dark:text-white mb-2">
+              <div className="font-heading text-3xl sm:text-4xl text-slate-900 dark:text-white mb-2">
                 <AnimatedCounter prefix="$" to={2.4} decimals={1} suffix="B" />
               </div>
 
