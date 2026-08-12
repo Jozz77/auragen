@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { name: "About", href: "#about" },
   { name: "Technology", href: "#technology" },
   { name: "Capabilities", href: "#capabilities" },
-  { name: "Impact", href: "#stats" },
+  { name: "Impact", href: "#impact" },
 ];
 
 export function Navbar() {
