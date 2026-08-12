@@ -2,6 +2,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { TechSection } from "@/components/sections/TechSection";
+import { CapabilitiesSection } from "@/components/sections/CapabilitiesSection";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <TechSection />
+        <CapabilitiesSection />
       </main>
 
       {/* Footer */}
