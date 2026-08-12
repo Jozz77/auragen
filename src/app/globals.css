@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  /* Dark Mode (Default) */
+  --background: #050505;
+  --foreground: #ECEFF1;
+  --card: rgba(17, 22, 34, 0.6);
+  --accent-primary: #00F2FE;
+  --accent-secondary: #00F5A0;
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --muted: #94A3B8;
+}
+
+.light {
+  /* Light Mode */
+  --background: #F7F7F9;
+  --foreground: #0F172A;
+  --card: rgba(255, 255, 255, 0.8);
+  --accent-primary: #0D9488;
+  --accent-secondary: #2563EB;
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --muted: #475569;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-glass-border: var(--glass-border);
+  --color-muted: var(--muted);
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility border-glass {
+  border-width: 1px;
+  border-color: var(--glass-border);
+}
+
