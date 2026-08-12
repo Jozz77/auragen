@@ -1,5 +1,7 @@
 import { Navbar } from "@/components/ui/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { TechSection } from "@/components/sections/TechSection";
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
       {/* Main */}
       <main className="flex-grow flex flex-col">
         <HeroSection />
+        <AboutSection />
+        <TechSection />
       </main>
 
       {/* Footer */}
