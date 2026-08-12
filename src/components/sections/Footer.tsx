@@ -31,11 +31,13 @@ export function Footer() {
   return (
     <footer
       className={cn(
-        "w-full transition-colors duration-300 border-t",
-        "dark:bg-[#020305] dark:border-white/10",
-        "bg-[#EEF2F6] border-slate-300/80"
+        "w-full transition-colors duration-300 border-t relative",
+        "dark:bg-[#020408] dark:border-slate-800/80",
+        "bg-[#E2E8F0] border-slate-300/80"
       )}
     >
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
         {/* 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">

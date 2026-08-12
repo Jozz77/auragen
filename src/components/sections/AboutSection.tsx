@@ -135,7 +135,9 @@ export function AboutSection() {
   const [isHoveredCard1, setIsHoveredCard1] = useState(false);
 
   return (
-    <section id="about" className="relative w-full bg-white dark:bg-[#0A0E17] transition-colors duration-300">
+    <section id="about" className="relative w-full dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300">
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent" />
       <div className="max-w-7xl mx-auto px-6 py-24 sm:py-32">
         
         {/* ── 1. Section Header & Narrative Reveal ─────────────────────────── */}
@@ -146,7 +148,7 @@ export function AboutSection() {
 
           <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl leading-[1.1]">
             Unlocking the precision code of{" "}
-            <span className="bg-gradient-to-r from-teal-600 to-blue-600 dark:from-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-violet-500 dark:from-cyan-400 dark:via-teal-400 dark:to-violet-500 bg-clip-text text-transparent">
               human cellular biology.
             </span>
           </h2>
@@ -162,9 +164,9 @@ export function AboutSection() {
             onMouseEnter={() => setIsHoveredCard1(true)}
             onMouseLeave={() => setIsHoveredCard1(false)}
             className={cn(
-              "lg:col-span-5 flex flex-col justify-between rounded-3xl p-8 border transition-all duration-300 relative overflow-hidden group",
-              "bg-white/80 border-slate-200/80 shadow-sm hover:shadow-md",
-              "dark:bg-[#0A0D14]/60 dark:border-white/10 dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]"
+              "lg:col-span-5 flex flex-col justify-between rounded-3xl p-8 border transition-all duration-300 relative overflow-hidden group shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             {/* Ambient inner glow */}
@@ -230,9 +232,9 @@ export function AboutSection() {
           {/* Card 2: Interactive Radial Target Network (col-span-7) */}
           <div
             className={cn(
-              "lg:col-span-7 flex flex-col justify-between rounded-3xl p-8 border transition-all duration-300 relative overflow-hidden",
-              "bg-white/80 border-slate-200/80 shadow-sm",
-              "dark:bg-[#0A0D14]/60 dark:border-white/10 dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]"
+              "lg:col-span-7 flex flex-col justify-between rounded-3xl p-8 border transition-all duration-300 relative overflow-hidden shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             {/* Card Header */}
@@ -378,9 +380,9 @@ export function AboutSection() {
           {/* Card 3: Full-Width Impact Stats Strip (col-span-12) */}
           <div
             className={cn(
-              "lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 rounded-3xl p-8 border transition-all duration-300",
-              "bg-white/80 border-slate-200/80 shadow-sm",
-              "dark:bg-[#0A0D14]/60 dark:border-white/10 dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)]"
+              "lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 rounded-3xl p-8 border transition-all duration-300 shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             {/* Stat 1 */}

@@ -5,24 +5,34 @@
 
 :root {
   /* Dark Mode (Default) */
-  --background: #050505;
+  --background: #030508;
   --foreground: #ECEFF1;
-  --card: rgba(17, 22, 34, 0.6);
+  --card: rgba(18, 24, 38, 0.95);
   --accent-primary: #00F2FE;
   --accent-secondary: #00F5A0;
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --accent-violet: #A855F7;
+  --glass-border: rgba(51, 65, 85, 0.8);
   --muted: #94A3B8;
+
+  /* High-Contrast Section Tokens */
+  --section-primary: #030508;
+  --section-secondary: #0F172A;
 }
 
 .light {
   /* Light Mode */
-  --background: #F7F7F9;
+  --background: #F8FAFC;
   --foreground: #0F172A;
-  --card: rgba(255, 255, 255, 0.8);
+  --card: rgba(255, 255, 255, 1);
   --accent-primary: #0D9488;
   --accent-secondary: #2563EB;
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --accent-violet: #7C3AED;
+  --glass-border: rgba(203, 213, 225, 1);
   --muted: #475569;
+
+  /* High-Contrast Section Tokens */
+  --section-primary: #F8FAFC;
+  --section-secondary: #EBF1F7;
 }
 
 @theme {
@@ -31,6 +41,7 @@
   --color-card: var(--card);
   --color-accent-primary: var(--accent-primary);
   --color-accent-secondary: var(--accent-secondary);
+  --color-accent-violet: var(--accent-violet);
   --color-glass-border: var(--glass-border);
   --color-muted: var(--muted);
 
@@ -58,3 +69,46 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--glass-border);
 }
 
+/* ─── High-Contrast Section Background Utilities ────────────────────────── */
+
+@utility bg-section-primary {
+  background-color: var(--section-primary);
+}
+
+@utility bg-section-secondary {
+  background-color: var(--section-secondary);
+}
+
+@utility bg-card-surface {
+  background-color: var(--card);
+  border-width: 1px;
+  border-color: var(--glass-border);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@utility bg-card-surface-hover {
+  &:hover {
+    border-color: rgba(6, 182, 212, 0.5);
+  }
+}
+
+/* ─── Violet Gradient Utilities ─────────────────────────────────────────── */
+
+@utility text-gradient-cyan-violet {
+  background-image: linear-gradient(to right, #00F2FE, #A855F7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-violet-cyan {
+  background-image: linear-gradient(to right, #A855F7, #00F2FE);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility border-gradient-violet-cyan {
+  border-image: linear-gradient(to right, rgba(168,85,247,0.3), rgba(0,242,254,0.3)) 1;
+}

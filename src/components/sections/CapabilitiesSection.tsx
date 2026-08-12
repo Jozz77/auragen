@@ -123,14 +123,14 @@ function CapabilityCard({ item }: { item: CapabilityItem }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "group relative rounded-3xl p-8 border transition-all duration-300 flex flex-col justify-between h-full cursor-pointer",
+        "group relative rounded-3xl p-8 border transition-all duration-300 flex flex-col justify-between h-full cursor-pointer shadow-xl",
         // Base styling
-        "bg-slate-50/80 border-slate-200/90 shadow-sm hover:shadow-2xl",
-        "dark:bg-[#0D121F]/80 dark:border-white/10 dark:hover:border-cyan-400/40"
+        "bg-white border-slate-300/80 hover:border-slate-400",
+        "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
       )}
     >
       {/* Outer gradient glow border on hover */}
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/20 via-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" />
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-violet-500/20 via-cyan-500/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10" />
 
       {/* Top Header Row */}
       <div>
@@ -145,7 +145,7 @@ function CapabilityCard({ item }: { item: CapabilityItem }) {
         </div>
 
         {/* Title */}
-        <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-teal-600 dark:group-hover:text-cyan-400 transition-colors">
+        <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
           {item.title}
         </h3>
 
@@ -174,8 +174,10 @@ export function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className="relative w-full bg-white dark:bg-[#0A0E17] transition-colors duration-300 py-28 overflow-hidden"
+      className="relative w-full dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300 py-28 overflow-hidden"
     >
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* ── Section Header ─────────────────────────────────────────────── */}

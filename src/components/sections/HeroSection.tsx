@@ -58,7 +58,9 @@ const itemVariants: Variants = {
 
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] transition-colors duration-300">
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent" />
       {/*
         min-h-[90vh] keeps the section tall enough for all content on typical
         screens without overflowing into the next section.
@@ -86,7 +88,7 @@ export function HeroSection() {
             className="font-heading text-5xl sm:text-6xl xl:text-[4.25rem] font-bold tracking-tight leading-[1.06] text-slate-900 dark:text-white"
           >
             Engineering{" "}
-            <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-violet-400 to-violet-500 dark:from-cyan-400 dark:via-violet-400 dark:to-violet-500 light:from-teal-500 light:via-blue-600 light:to-violet-600 bg-clip-text text-transparent">
               targeted cellular
               <br className="hidden sm:block" />
               therapies

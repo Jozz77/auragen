@@ -22,15 +22,17 @@ export function CtaSection() {
       id="contact"
       className={cn(
         "relative w-full py-28 transition-colors duration-300 overflow-hidden",
-        "dark:bg-[#020305] bg-[#EEF2F6]"
+        "dark:bg-[#020408] bg-[#E2E8F0]"
       )}
     >
-      {/* Central ambient radial glow */}
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
+      {/* Central ambient radial glow — dual violet + cyan */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] pointer-events-none -z-10"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none -z-10"
         style={{
           background:
-            "radial-gradient(circle at center, rgba(0, 242, 254, 0.15) 0%, transparent 68%)",
+            "radial-gradient(circle at 40% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 55%), radial-gradient(circle at 60% 50%, rgba(0, 242, 254, 0.13) 0%, transparent 55%)",
         }}
       />
 
@@ -42,8 +44,8 @@ export function CtaSection() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className={cn(
             "rounded-3xl p-10 sm:p-14 md:p-16 relative shadow-2xl text-center max-w-4xl mx-auto backdrop-blur-xl border",
-            "bg-white border-slate-300/90 shadow-slate-200/50",
-            "dark:bg-[#0A0D14]/80 dark:border-white/10 dark:shadow-[0_16px_48px_rgba(0,0,0,0.6)]"
+            "bg-white border-slate-300/80 shadow-xl",
+            "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
           )}
         >
           {/* Decorative ambient top highlight */}

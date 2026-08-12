@@ -73,14 +73,10 @@ export function ImpactSection() {
   return (
     <section
       id="impact"
-      className={cn(
-        "relative w-full py-28 transition-colors duration-300 overflow-hidden",
-        // Dark: Pure Obsidian with ambient radial light glow
-        "dark:bg-[#050505]",
-        // Light: Pearl White
-        "bg-[#F7F7F9]"
-      )}
+      className="relative w-full py-28 transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC]"
     >
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
       {/* Ambient background radial glow in dark mode */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none -z-10" />
 
@@ -110,9 +106,9 @@ export function ImpactSection() {
           {/* Stat 1: Target Efficacy */}
           <div
             className={cn(
-              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group hover:shadow-xl",
-              "bg-white border-slate-200/80 shadow-sm",
-              "dark:bg-[#0A0D14]/80 dark:border-white/10 dark:hover:border-cyan-400/30"
+              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             <div>
@@ -159,9 +155,9 @@ export function ImpactSection() {
           {/* Stat 2: Velocity */}
           <div
             className={cn(
-              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group hover:shadow-xl",
-              "bg-white border-slate-200/80 shadow-sm",
-              "dark:bg-[#0A0D14]/80 dark:border-white/10 dark:hover:border-cyan-400/30"
+              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             <div>
@@ -199,9 +195,9 @@ export function ImpactSection() {
           {/* Stat 3: Scale */}
           <div
             className={cn(
-              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group hover:shadow-xl",
-              "bg-white border-slate-200/80 shadow-sm",
-              "dark:bg-[#0A0D14]/80 dark:border-white/10 dark:hover:border-cyan-400/30"
+              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             <div>
@@ -241,9 +237,9 @@ export function ImpactSection() {
           {/* Stat 4: Clinical Value */}
           <div
             className={cn(
-              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group hover:shadow-xl",
-              "bg-white border-slate-200/80 shadow-sm",
-              "dark:bg-[#0A0D14]/80 dark:border-white/10 dark:hover:border-cyan-400/30"
+              "rounded-3xl p-8 border flex flex-col justify-between transition-all duration-300 group shadow-xl",
+              "bg-white border-slate-300/80 hover:border-slate-400",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
           >
             <div>

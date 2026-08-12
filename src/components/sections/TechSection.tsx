@@ -141,12 +141,16 @@ function Stage01Widget() {
       </div>
 
       {/* Metrics footer */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800 text-xs text-slate-400">
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800 text-xs text-slate-300">
         <div className="flex items-center gap-4">
-          <div>Promoter Match: <span className="text-cyan-400 font-semibold font-mono">99.7%</span></div>
-          <div>Enhancer Motif: <span className="text-emerald-400 font-semibold font-mono">POS_8-15</span></div>
+          <div className="px-2.5 py-1 rounded-md dark:bg-cyan-950/40 dark:border-cyan-500/40 border border-cyan-500/20 dark:text-cyan-300 font-mono">
+            Promoter Match: <span className="text-cyan-400 font-semibold">99.7%</span>
+          </div>
+          <div className="px-2.5 py-1 rounded-md dark:bg-emerald-950/40 dark:border-emerald-500/40 border border-emerald-500/20 dark:text-emerald-300 font-mono">
+            Enhancer Motif: <span className="text-emerald-400 font-semibold">POS_8-15</span>
+          </div>
         </div>
-        <div className="text-slate-500 font-mono">MODEL_CONFIDENCE: HIGH</div>
+        <div className="text-slate-400 font-mono px-2 py-0.5 rounded border border-slate-700/60">MODEL_CONFIDENCE: HIGH</div>
       </div>
     </div>
   );
@@ -406,14 +410,10 @@ export function TechSection() {
   return (
     <section
       id="technology"
-      className={cn(
-        "relative w-full py-28 transition-colors duration-300 overflow-hidden",
-        // Dark Mode: bg-[#050505] with subtle grid pattern
-        "dark:bg-[#050505] dark:bg-[linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:bg-[size:32px_32px]",
-        // Light Mode: bg-[#F7F7F9] with soft dot grid
-        "bg-[#F7F7F9] bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"
-      )}
+      className="relative w-full py-28 transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]"
     >
+      {/* Luminous Section Separator */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* ── Section Header ─────────────────────────────────────────────── */}
@@ -422,9 +422,9 @@ export function TechSection() {
             <Badge variant="default">PROPRIETARY TECH STACK</Badge>
           </div>
 
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08]">
+          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] text-balance">
             AI-powered molecular{" "}
-            <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
               engineering engine.
             </span>
           </h2>
@@ -475,7 +475,7 @@ export function TechSection() {
                       className={cn(
                         "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors mt-0.5",
                         isActive
-                          ? "bg-gradient-to-tr from-teal-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500 text-white dark:text-slate-950 font-bold shadow-md"
+                          ? "bg-gradient-to-tr from-violet-600 to-cyan-500 dark:from-violet-500 dark:to-cyan-400 text-white font-bold shadow-md"
                           : "bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white"
                       )}
                     >
