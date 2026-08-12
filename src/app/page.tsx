@@ -4,6 +4,8 @@ import { AboutSection } from "@/components/sections/AboutSection";
 import { TechSection } from "@/components/sections/TechSection";
 import { CapabilitiesSection } from "@/components/sections/CapabilitiesSection";
 import { ImpactSection } from "@/components/sections/ImpactSection";
+import { CtaSection } from "@/components/sections/CtaSection";
+import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -15,37 +17,18 @@ export default function Home() {
       {/* Navigation */}
       <Navbar />
 
-      {/* Main */}
+      {/* Main Page Stack */}
       <main className="flex-grow flex flex-col">
         <HeroSection />
         <AboutSection />
         <TechSection />
         <CapabilitiesSection />
         <ImpactSection />
+        <CtaSection />
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-8 border-t border-slate-100 dark:border-white/5 bg-background transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500 dark:text-slate-500">
-          <div>
-            © {new Date().getFullYear()} AuraGen Inc. All biological assets protected.
-          </div>
-          <div className="flex gap-6">
-            <a
-              href="#privacy"
-              className="hover:text-teal-600 dark:hover:text-cyan-400 transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#terms"
-              className="hover:text-teal-600 dark:hover:text-cyan-400 transition-colors"
-            >
-              Terms of Use
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
