@@ -503,7 +503,7 @@ export function TechSection() {
       id="technology"
       className={cn(
         "relative w-full transition-colors duration-300 dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]",
-        isMobile ? "py-24 px-[4%]" : "h-[400vh]"
+        isMobile ? "py-12" : "h-[400vh]"
       )}
     >
       {/* Sticky viewport wrapper */}
@@ -611,7 +611,7 @@ export function TechSection() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.25, ease: "easeInOut" }}
                   className={cn(
-                    "rounded-3xl p-8 border shadow-xl flex flex-col justify-between gap-8 relative overflow-hidden backdrop-blur-xl",
+                    "rounded-3xl p-4 sm:p-8 border shadow-xl flex flex-col justify-between gap-8 relative overflow-hidden backdrop-blur-xl",
                     "bg-white border-slate-200/90",
                     "dark:bg-[#0D121F]/80 dark:border-white/10"
                   )}
@@ -620,7 +620,7 @@ export function TechSection() {
                   <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
 
                   <div className="flex flex-col gap-4 relative z-10">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row items-start sm:items-center justify-between">
                       <span className="text-xs font-mono font-bold uppercase tracking-wider text-teal-600 dark:text-cyan-400 bg-teal-500/10 dark:bg-cyan-400/10 px-3 py-1 rounded-full border border-teal-500/20 dark:border-cyan-400/20">
                         PHASE {activeStage.stepNumber} // {activeStage.badge}
                       </span>

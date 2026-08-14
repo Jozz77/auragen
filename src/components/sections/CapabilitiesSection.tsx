@@ -174,7 +174,7 @@ export function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className="relative w-full py-24 px-[4%] overflow-hidden dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300 py-24 px-[4%] overflow-hidden"
+      className="relative w-full py-12 sm:py-24 px-[4%] overflow-hidden dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300  px-[4%] overflow-hidden"
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />

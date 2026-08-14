@@ -21,7 +21,7 @@ export function CtaSection() {
     <section
       id="cta"
       className={cn(
-        "relative w-full py-28 transition-colors duration-300 overflow-hidden",
+        "relative w-full py-12 sm:py-28 transition-colors duration-300 overflow-hidden",
         "dark:bg-[#020408] bg-[#E2E8F0]"
       )}
     >
@@ -36,7 +36,7 @@ export function CtaSection() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export function CtaSection() {
           </div>
 
           {/* Headline */}
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
+          <h2 className="font-heading text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
             Accelerate your drug discovery{" "}
             <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
               timeline today.

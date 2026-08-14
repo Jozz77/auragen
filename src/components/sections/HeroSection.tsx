@@ -58,7 +58,7 @@ const itemVariants: Variants = {
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative pl-[4%] w-full overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] transition-colors duration-300">
+    <section id="hero" className="relative px-[4%] w-full overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] transition-colors duration-300">
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent" />
       {/*
@@ -66,7 +66,7 @@ export function HeroSection() {
         screens without overflowing into the next section.
         pt-36 / md:pt-40 clears the fixed navbar (≈72px) plus breathing room.
       */}
-      <div className="grid grid-cols-1 relative lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[90vh] pt-36 pb-16 md:pt-40 md:pb-20">
+      <div className="grid grid-cols-1 relative lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[90vh] pt-28 pb-0 sm:pb-16 md:pt-40 md:pb-20">
 
         {/* ── Left Column (60%) ──────────────────────────────────────────────── */}
         <motion.div
@@ -89,12 +89,12 @@ export function HeroSection() {
           >
             Engineering{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-violet-400 to-violet-500 dark:from-cyan-400 dark:via-violet-400 dark:to-violet-500 light:from-teal-500 light:via-blue-600 light:to-violet-600 bg-clip-text text-transparent">
-              targeted cellular
+              targeted cellular{" "}
               <br className="hidden sm:block" />
               therapies
             </span>{" "}
-            at
-            <br />
+            at{" "}
+            <br className="hidden sm:block" />
             molecular scale.
           </motion.h1>
 
@@ -178,7 +178,7 @@ export function HeroSection() {
 
         {/* ── Right Column (40%) ─────────────────────────────────────────────── */}
         <motion.div
-          className="lg:col-span-5 absolute left-[55%] top-[15%] w-[45%] bottom-0 "
+          className="lg:col-span-5 relative lg:absolute left-0 lg:left-[55%] top-0 lg:top-[15%] w-full lg:w-[45%] h-[350px] sm:h-[450px] lg:h-auto bottom-auto lg:bottom-0"
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, delay: 0.22, ease: "easeOut" }}

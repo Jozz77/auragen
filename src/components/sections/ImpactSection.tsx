@@ -73,14 +73,14 @@ export function ImpactSection() {
   return (
     <section
       id="impact"
-      className="relative w-full py-24 px-[4%] transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC]"
+      className="relative w-full py-12 sm:py-24 px-[4%] transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC]"
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
       {/* Ambient background radial glow in dark mode */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className=" relative z-10">
 
         {/* ── Section Header ─────────────────────────────────────────────── */}
         <div className="flex flex-col gap-4 max-w-3xl mb-16">

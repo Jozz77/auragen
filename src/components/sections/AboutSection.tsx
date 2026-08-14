@@ -224,7 +224,7 @@ export function AboutSection() {
       id="about" 
       className={cn(
         "relative w-full dark:bg-[#0F172A] px-[4%] bg-[#EBF1F7] transition-colors duration-300",
-        isMobile ? "py-20" : "h-[300vh]"
+        isMobile ? "py-12" : "h-[300vh]"
       )}
     >
       {/* Sticky viewbox wrapper */}
@@ -245,7 +245,7 @@ export function AboutSection() {
               <Badge variant="muted">OUR INNOVATION PARADIGM</Badge>
             </div>
 
-            <h2 className="font-heading text-4xl sm:text-5xl xl:text-[3.5rem] font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl leading-[1.1]">
+            <h2 className="font-heading text-3xl sm:text-5xl xl:text-[3.5rem] font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl leading-[1.1]">
               Unlocking the precision code of{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-violet-500 dark:from-cyan-400 dark:via-teal-400 dark:to-violet-500 bg-clip-text text-transparent">
                 human cellular biology.
@@ -332,7 +332,7 @@ export function AboutSection() {
           <div
             ref={card2Ref}
             className={cn(
-              "lg:col-span-7 flex flex-col justify-between rounded-3xl p-8 border transition-all duration-300 relative overflow-hidden shadow-xl",
+              "lg:col-span-7 flex flex-col justify-between rounded-3xl p-4 sm:p-8 border transition-all duration-300 relative overflow-hidden shadow-xl",
               "bg-white border-slate-300/80 hover:border-slate-400",
               "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
@@ -568,7 +568,7 @@ export function AboutSection() {
           {/* Card 3: Full-Width Impact Stats Strip (col-span-12) */}
           <div
             className={cn(
-              "lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 rounded-3xl p-8 border transition-all duration-300 shadow-xl",
+              "lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 rounded-3xl p-4 sm:p-8 border transition-all duration-300 shadow-xl",
               "bg-white border-slate-300/80 hover:border-slate-400",
               "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
