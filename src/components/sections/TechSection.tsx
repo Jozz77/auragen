@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
 import {
@@ -396,14 +396,23 @@ export function TechSection() {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Detect mobile viewport on mount/resize
+  const prefersReducedMotion = useReducedMotion();
+
+  // Detect mobile viewport on mount/resize — debounced to avoid excessive re-renders
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint matches user request "< md"
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        setIsMobile(window.innerWidth < 768);
+      }, 100);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   // ── Desktop scroll-driven phase stepper ─────────────────────────────────────
@@ -442,7 +451,8 @@ export function TechSection() {
       }
 
       const activePx = scrolledPx - DEAD_ZONE_PX;
-      const activeRangePx = totalScrollPx - DEAD_ZONE_PX;
+      // Clamp to at least 1 to prevent division-by-zero on short viewports
+      const activeRangePx = Math.max(1, totalScrollPx - DEAD_ZONE_PX);
       const adjusted = Math.min(activePx / activeRangePx, 1);
 
       const total = TECH_STAGES.length;
@@ -510,15 +520,21 @@ export function TechSection() {
       <div 
         className={cn(
           "w-full flex flex-col justify-center overflow-visible px-[4%]",
-          !isMobile ? "sticky top-0 min-h-screen py-12" : ""
+          !isMobile ? "sticky top-0 min-h-screen py-24" : ""
         )}
       >
         {/* Luminous Section Separator */}
         <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
         <div className="relative z-10">
 
-          {/* ── Section Header ─────────────────────────────────────────────── */}
-          <div className="flex flex-col gap-4 max-w-3xl mb-16">
+          {/* ── Section Header — fade-up on first viewport entry ────────── */}
+          <motion.div
+            className="flex flex-col gap-4 max-w-3xl mb-16"
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div>
               <Badge variant="default">PROPRIETARY TECH STACK</Badge>
             </div>
@@ -533,7 +549,7 @@ export function TechSection() {
             <p className="text-[1.12rem] text-slate-600 dark:text-slate-300 leading-relaxed">
               From genomic sequence decoding to synthetic cell delivery in four integrated phases.
             </p>
-          </div>
+          </motion.div>
 
           {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

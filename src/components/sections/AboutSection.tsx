@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, MotionValue, useInView, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
 import {
   LucideIcon,
@@ -240,7 +241,7 @@ export function AboutSection() {
         <div className="max-w-7xl mx-auto w-full">
           
           {/* ── 1. Section Header & Narrative Reveal ─────────────────────────── */}
-          <div className="flex flex-col gap-4">
+          <ScrollReveal direction="up" margin="-10%" className="flex flex-col gap-4">
             <div>
               <Badge variant="muted">OUR INNOVATION PARADIGM</Badge>
             </div>
@@ -253,7 +254,7 @@ export function AboutSection() {
             </h2>
 
             <NarrativeReveal progress={scrollYProgress} />
-          </div>
+          </ScrollReveal>
 
         {/* ── 2. Interactive Bento Innovation Grid ─────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-12">
@@ -328,9 +329,13 @@ export function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Card 2: Interactive Radial Target Network (col-span-7) */}
-          <div
+          {/* Card 2: Interactive Radial Target Network (col-span-7) — scale-in on enter */}
+          <motion.div
             ref={card2Ref}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className={cn(
               "lg:col-span-7 flex flex-col justify-between rounded-3xl p-4 sm:p-8 border transition-all duration-300 relative overflow-hidden shadow-xl",
               "bg-white border-slate-300/80 hover:border-slate-400",
@@ -563,12 +568,13 @@ export function AboutSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Full-Width Impact Stats Strip (col-span-12) */}
+          <ScrollReveal direction="up" delay={0.1} className="lg:col-span-12">
           <div
             className={cn(
-              "lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 rounded-3xl p-4 sm:p-8 border transition-all duration-300 shadow-xl",
+              "grid grid-cols-1 md:grid-cols-3 gap-6 rounded-3xl p-4 sm:p-8 border transition-all duration-300 shadow-xl",
               "bg-white border-slate-300/80 hover:border-slate-400",
               "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
             )}
@@ -625,6 +631,7 @@ export function AboutSection() {
             </div>
 
           </div>
+          </ScrollReveal>
 
         </div>
       </div>

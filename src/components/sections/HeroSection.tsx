@@ -37,6 +37,8 @@ const METRICS = [
 
 // ─── Motion Variants ─────────────────────────────────────────────────────────
 
+const BIOTECH_EASE = [0.16, 1, 0.3, 1] as const;
+
 const containerVariants: Variants = {
   hidden: {},
   visible: {
@@ -46,11 +48,22 @@ const containerVariants: Variants = {
 
 // Spring physics avoids Framer Motion v13's strict Easing literal union
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 22, letterSpacing: "0.05em" },
   visible: {
     opacity: 1,
     y: 0,
+    letterSpacing: "-0.02em",
     transition: { type: "spring", stiffness: 80, damping: 18 },
+  },
+};
+
+// Metric badge scale variants
+const metricVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.88 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: "spring", stiffness: 100, damping: 16 },
   },
 };
 
@@ -82,7 +95,7 @@ export function HeroSection() {
             </Badge>
           </motion.div>
 
-          {/* 2 · Display Headline */}
+          {/* 2 · Display Headline — staggered, with letter-spacing compression */}
           <motion.h1
             variants={itemVariants}
             className="font-heading text-4xl sm:text-5xl xl:text-[3.5rem] font-bold tracking-tight leading-[1.06] text-slate-900 dark:text-white"
@@ -153,35 +166,61 @@ export function HeroSection() {
             ))}
           </motion.div>
 
-          {/* 6 · Micro Metrics */}
+          {/* 6 · Micro Metrics — scale-up with cyan ambient pulse ring */}
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-0"
           >
             {METRICS.map((metric, i) => (
-              <div key={metric.label} className="flex items-center">
+              <motion.div key={metric.label} className="flex items-center" variants={metricVariants}>
                 {i > 0 && (
                   <div className="w-px h-10 bg-slate-200 dark:bg-white/10 mx-6" />
                 )}
-                <div className="flex flex-col">
-                  <span className="font-heading text-[1.2rem] font-bold text-slate-900 dark:text-white tabular-nums">
+                <div className="relative flex flex-col">
+                  {/* Ambient pulse ring behind the number */}
+                  <motion.span
+                    className="absolute -inset-2 rounded-full bg-cyan-400/10 dark:bg-cyan-400/15 pointer-events-none"
+                    animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 1.5,
+                    }}
+                  />
+                  <span className="font-heading text-[1.2rem] font-bold text-slate-900 dark:text-white tabular-nums relative z-10">
                     {metric.value}
                   </span>
                   <span className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-tight">
                     {metric.label}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* ── Right Column (40%) ─────────────────────────────────────────────── */}
+        {/* ── Right Column (40%) — ambient floating animation ──────────────── */}
         <motion.div
           className="lg:col-span-5 relative lg:absolute left-0 lg:left-[55%] top-0 lg:top-[15%] w-full lg:w-[45%] h-[350px] sm:h-[450px] lg:h-auto bottom-auto lg:bottom-0"
           initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, delay: 0.22, ease: "easeOut" }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            // Ambient float: continuous gentle vertical oscillation
+            y: [0, -12, 0],
+          }}
+          transition={{
+            opacity: { duration: 1.1, delay: 0.22, ease: "easeOut" },
+            scale:   { duration: 1.1, delay: 0.22, ease: "easeOut" },
+            y: {
+              duration: 6,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+              delay: 1.2,
+            },
+          }}
         >
           {/* Primary radial glow behind the canvas */}
           <div

@@ -7,6 +7,12 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { ArrowRight, CheckCircle2, Lock, Shield, Zap } from "lucide-react";
 
+const TRUST_ITEMS = [
+  { icon: Lock,   label: "SOC2 Type II Certified" },
+  { icon: Shield, label: "FDA Compliant Data Vaults" },
+  { icon: Zap,    label: "Instant API Access" },
+];
+
 export function CtaSection() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -27,6 +33,7 @@ export function CtaSection() {
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
+
       {/* Central ambient radial glow — dual violet + cyan */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none -z-10"
@@ -37,99 +44,119 @@ export function CtaSection() {
       />
 
       <div className="max-w-7xl mx-auto px-2 sm:px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className={cn(
-            "rounded-3xl p-10 sm:p-14 md:p-16 relative shadow-2xl text-center max-w-4xl mx-auto backdrop-blur-xl border",
-            "bg-white border-slate-300/80 shadow-xl",
-            "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
-          )}
-        >
-          {/* Decorative ambient top highlight */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80" />
 
-          {/* Badge */}
-          <div className="mb-6 flex justify-center">
-            <Badge variant="default">START YOUR PIPELINE</Badge>
-          </div>
+        {/* ── Expanding glassmorphic aura glow behind the card ─────────────── */}
+        <div className="relative max-w-4xl mx-auto">
+          <motion.div
+            className="absolute inset-0 rounded-3xl pointer-events-none"
+            initial={{ scale: 0.75, opacity: 0 }}
+            whileInView={{ scale: 1.08, opacity: 1 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 50%, rgba(0,242,254,0.18) 0%, rgba(168,85,247,0.10) 50%, transparent 72%)",
+              filter: "blur(32px)",
+            }}
+          />
 
-          {/* Headline */}
-          <h2 className="font-heading text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
-            Accelerate your drug discovery{" "}
-            <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
-              timeline today.
-            </span>
-          </h2>
+          {/* Main CTA Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+              "rounded-3xl p-10 sm:p-14 md:p-16 relative shadow-2xl text-center backdrop-blur-xl border",
+              "bg-white border-slate-300/80 shadow-xl",
+              "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+            )}
+          >
+            {/* Decorative ambient top highlight */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80" />
 
-          {/* Subheadline */}
-          <p className="text-[1rem] text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10">
-            Partner with AuraGen to deploy proprietary multi-omic AI models and targeted vectoring to your therapeutic pipeline.
-          </p>
+            {/* Badge */}
+            <div className="mb-6 flex justify-center">
+              <Badge variant="default">START YOUR PIPELINE</Badge>
+            </div>
 
-          {/* Interactive Quick-Contact Bar */}
-          <div className="max-w-xl mx-auto mb-8">
-            <AnimatePresence mode="wait">
-              {submitted ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-3 text-sm font-semibold"
-                >
-                  <CheckCircle2 className="w-5 h-5 shrink-0" />
-                  <span>Access Request Submitted. A bio-engineer will contact your team within 2 hours.</span>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={handleSubmit}
-                  className={cn(
-                    "flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl border transition-all shadow-md",
-                    "bg-slate-50 border-slate-300 focus-within:border-teal-500",
-                    "dark:bg-black/50 dark:border-white/10 dark:focus-within:border-cyan-400/60"
-                  )}
-                >
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your institutional email..."
-                    required
-                    className="w-full px-4 py-3 bg-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none"
-                  />
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    icon={<ArrowRight className="w-4 h-4" />}
-                    className="w-full sm:w-auto shrink-0 px-6 py-3 text-white font-semibold shadow-lg shadow-cyan-500/20"
+            {/* Headline */}
+            <h2 className="font-heading text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] mb-6">
+              Accelerate your drug discovery{" "}
+              <span className="bg-gradient-to-r from-teal-600 via-blue-600 to-cyan-500 dark:from-cyan-400 dark:via-teal-300 dark:to-blue-400 bg-clip-text text-transparent">
+                timeline today.
+              </span>
+            </h2>
+
+            {/* Subheadline */}
+            <p className="text-[1rem] text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10">
+              Partner with AuraGen to deploy proprietary multi-omic AI models and targeted vectoring to your therapeutic pipeline.
+            </p>
+
+            {/* Interactive Quick-Contact Bar */}
+            <div className="max-w-xl mx-auto mb-8">
+              <AnimatePresence mode="wait">
+                {submitted ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-3 text-sm font-semibold"
                   >
-                    Request Access
-                  </Button>
-                </motion.form>
-              )}
-            </AnimatePresence>
-          </div>
+                    <CheckCircle2 className="w-5 h-5 shrink-0" />
+                    <span>Access Request Submitted. A bio-engineer will contact your team within 2 hours.</span>
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    onSubmit={handleSubmit}
+                    className={cn(
+                      "flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl border transition-all shadow-md",
+                      "bg-slate-50 border-slate-300 focus-within:border-teal-500",
+                      "dark:bg-black/50 dark:border-white/10 dark:focus-within:border-cyan-400/60"
+                    )}
+                  >
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your institutional email..."
+                      required
+                      className="w-full px-4 py-3 bg-transparent text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none"
+                    />
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      icon={<ArrowRight className="w-4 h-4" />}
+                      className="w-full sm:w-auto shrink-0 px-6 py-3 text-white font-semibold shadow-lg shadow-cyan-500/20"
+                    >
+                      Request Access
+                    </Button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </div>
 
-          {/* Micro Trust Markers */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200/60 dark:border-white/5 font-medium">
-            <div className="flex items-center gap-1.5">
-              <Lock className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
-              <span>SOC2 Type II Certified</span>
+            {/* Micro Trust Markers — staggered entry */}
+            <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200/60 dark:border-white/5 font-medium">
+              {TRUST_ITEMS.map(({ icon: Icon, label }, i) => (
+                <motion.div
+                  key={label}
+                  className="flex items-center gap-1.5"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Icon className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
+                  <span>{label}</span>
+                </motion.div>
+              ))}
             </div>
-            <div className="flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
-              <span>FDA Compliant Data Vaults</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-teal-600 dark:text-cyan-400" />
-              <span>Instant API Access</span>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+
       </div>
     </section>
   );

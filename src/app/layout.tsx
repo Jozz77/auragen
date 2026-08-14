@@ -18,6 +18,12 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "AuraGen | Premium Genetic Intelligence & Biotech",
   description: "Next-generation biotech solutions driven by advanced bio-computing and genetic intelligence.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

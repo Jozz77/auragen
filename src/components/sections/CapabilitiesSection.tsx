@@ -6,8 +6,10 @@ import {
   useMotionValue,
   useTransform,
   useSpring,
+  type Variants,
 } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
 import {
   LucideIcon,
@@ -81,6 +83,30 @@ const CAPABILITIES: CapabilityItem[] = [
   },
 ];
 
+// ─── Stagger parent variants ─────────────────────────────────────────────────
+
+const gridVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
 // ─── Interactive 3D Tilt Card Component ─────────────────────────────────────
 
 function CapabilityCard({ item }: { item: CapabilityItem }) {
@@ -114,7 +140,9 @@ function CapabilityCard({ item }: { item: CapabilityItem }) {
   };
 
   return (
+    // Each card is itself a motion.div so it receives gridVariants stagger
     <motion.div
+      variants={cardVariants}
       style={{
         rotateX,
         rotateY,
@@ -126,7 +154,10 @@ function CapabilityCard({ item }: { item: CapabilityItem }) {
         "group relative rounded-3xl p-8 border transition-all duration-300 flex flex-col justify-between h-full cursor-pointer shadow-xl",
         // Base styling
         "bg-white border-slate-300/80 hover:border-slate-400",
-        "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/50 dark:shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+        // Dark mode — border glows on hover (50 → 80 opacity)
+        "dark:bg-[#121826]/95 dark:border-slate-700/80 dark:hover:border-cyan-500/80",
+        // Glowing box-shadow on hover
+        "dark:hover:shadow-[0_0_28px_rgba(0,242,254,0.18)]"
       )}
     >
       {/* Outer gradient glow border on hover */}
@@ -174,14 +205,14 @@ export function CapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className="relative w-full py-12 sm:py-24 px-[4%] overflow-hidden dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300  px-[4%] overflow-hidden"
+      className="relative w-full py-12 sm:py-24 px-[4%] overflow-hidden dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300"
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
-      <div className=" relative z-10">
+      <div className="relative z-10">
 
         {/* ── Section Header ─────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-4 max-w-3xl mb-16">
+        <ScrollReveal direction="up" className="flex flex-col gap-4 max-w-3xl mb-16">
           <div>
             <Badge variant="muted">PLATFORM CAPABILITIES</Badge>
           </div>
@@ -196,14 +227,20 @@ export function CapabilitiesSection() {
           <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             Integrating multi-omic AI models with high-throughput wet-lab automation to accelerate therapeutics from bench to bedside.
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* ── 6-Card Interactive Deck ─────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* ── 6-Card Interactive Deck — staggered assembly ────────────────── */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
           {CAPABILITIES.map((item) => (
             <CapabilityCard key={item.id} item={item} />
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
