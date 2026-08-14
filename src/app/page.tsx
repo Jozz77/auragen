@@ -9,7 +9,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden flex flex-col bg-background transition-colors duration-300">
+    <div className="relative min-h-screen overflow-x-clip flex flex-col bg-background transition-colors duration-300">
       {/* Full-page ambient glow orbs */}
       <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-cyan-400/5 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="fixed bottom-1/4 right-1/4 w-[700px] h-[700px] bg-teal-400/5 rounded-full blur-[160px] pointer-events-none -z-10" />

@@ -38,7 +38,7 @@ export function Footer() {
     >
       {/* Luminous Section Separator */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
+      <div className=" px-[4%] pt-16 pb-12">
         {/* 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
@@ -56,7 +56,7 @@ export function Footer() {
                 </span>
               </a>
 
-              <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed">
+              <p className="text-[0.85rem] text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed">
                 Precision multi-omic platform engineering combining generative AI with high-throughput bio-foundry synthesis.
               </p>
             </div>
@@ -76,7 +76,7 @@ export function Footer() {
             <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
               Platform
             </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="flex flex-col gap-4 text-[0.8rem] text-slate-600 dark:text-slate-400">
               {FOOTER_NAV.platform.map((item) => (
                 <li key={item.name}>
                   <a
@@ -95,7 +95,7 @@ export function Footer() {
             <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
               Company
             </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="flex flex-col gap-4 text-[0.8rem] text-slate-600 dark:text-slate-400">
               {FOOTER_NAV.company.map((item) => (
                 <li key={item.name}>
                   <a
@@ -114,7 +114,7 @@ export function Footer() {
             <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
               Legal &amp; Security
             </h4>
-            <ul className="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+            <ul className="flex flex-col gap-4 text-[0.8rem] text-slate-600 dark:text-slate-400">
               {FOOTER_NAV.legal.map((item) => (
                 <li key={item.name}>
                   <a
@@ -131,7 +131,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center pt-12 border-t dark:border-white/5 border-slate-300/60 mt-12 text-sm text-slate-500 dark:text-slate-400 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center pt-12 border-t dark:border-white/5 border-slate-300/60 mt-12 text-[0.8rem] text-slate-500 dark:text-slate-400 gap-4">
           <div>
             © {new Date().getFullYear()} AuraGen Therapeutics, Inc. All rights reserved.
           </div>
