@@ -19,7 +19,7 @@ export function CtaSection() {
 
   return (
     <section
-      id="contact"
+      id="cta"
       className={cn(
         "relative w-full py-28 transition-colors duration-300 overflow-hidden",
         "dark:bg-[#020408] bg-[#E2E8F0]"

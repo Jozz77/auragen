@@ -223,7 +223,7 @@ export function AboutSection() {
       ref={containerRef}
       id="about" 
       className={cn(
-        "relative w-full dark:bg-[#0F172A] bg-[#EBF1F7] transition-colors duration-300",
+        "relative w-full dark:bg-[#0F172A] px-[4%] bg-[#EBF1F7] transition-colors duration-300",
         isMobile ? "py-20" : "h-[300vh]"
       )}
     >

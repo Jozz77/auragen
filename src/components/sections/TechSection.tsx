@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
@@ -390,7 +390,97 @@ function Stage04Widget() {
 // ─── Main TechSection Component ─────────────────────────────────────────────
 
 export function TechSection() {
-  const [activeStage, setActiveStage] = useState<TechStage>(TECH_STAGES[0]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [scrollIndex, setScrollIndex] = useState(0);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Detect mobile viewport on mount/resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint matches user request "< md"
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ── Desktop scroll-driven phase stepper ─────────────────────────────────────
+  // We use a native scroll listener + getBoundingClientRect() to get exact pixel
+  // measurements. The dead zone is expressed in PIXELS (65 % of the viewport
+  // height) so it is viewport-size-independent. Phase-switching only begins once
+  // the user has scrolled that many pixels past the section's pin point — i.e.
+  // roughly when the interactive grid area is near the top of the viewport.
+  useEffect(() => {
+    if (isMobile) return;
+
+    const handleScroll = () => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      // rect.top > 0 → section hasn't pinned yet; skip.
+      if (rect.top > 0) {
+        setScrollIndex(0);
+        return;
+      }
+
+      // How many px the user has scrolled PAST the section's pin point.
+      const scrolledPx = Math.abs(rect.top);
+      const totalScrollPx = el.scrollHeight - window.innerHeight;
+
+      // Dead zone: wait until the user has scrolled 65% of the viewport height
+      // into the section. This corresponds approximately to the section header
+      // scrolling out of the "spotlight" and the interactive grid becoming
+      // the dominant element near the top of the viewport.
+      const DEAD_ZONE_PX = window.innerHeight * 0.65;
+
+      if (scrolledPx < DEAD_ZONE_PX) {
+        setScrollIndex(0);
+        return;
+      }
+
+      const activePx = scrolledPx - DEAD_ZONE_PX;
+      const activeRangePx = totalScrollPx - DEAD_ZONE_PX;
+      const adjusted = Math.min(activePx / activeRangePx, 1);
+
+      const total = TECH_STAGES.length;
+      let idx = Math.floor(adjusted * total);
+      if (idx >= total) idx = total - 1;
+      setScrollIndex(idx);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once on mount in case page is already partially scrolled.
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobile]);
+
+  // Determine active stage index
+  const activeIndex = isMobile ? mobileActiveIndex : scrollIndex;
+  const activeStage = TECH_STAGES[activeIndex];
+
+  // Tab click handler with smooth scroll on desktop
+  const handleTabClick = (index: number) => {
+    if (isMobile) {
+      setMobileActiveIndex(index);
+      return;
+    }
+
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const sectionScrollTop = window.scrollY + rect.top;
+      const totalScrollPx = containerRef.current.scrollHeight - window.innerHeight;
+      const DEAD_ZONE_PX = window.innerHeight * 0.65;
+      const activeRangePx = totalScrollPx - DEAD_ZONE_PX;
+      const segmentPx = activeRangePx / TECH_STAGES.length;
+      // Target is the section's document-top + dead zone + the tab's segment offset.
+      const targetY = sectionScrollTop + DEAD_ZONE_PX + index * segmentPx + 10;
+
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+    }
+  };
 
   const renderWidget = (stageId: string) => {
     switch (stageId) {
@@ -409,146 +499,157 @@ export function TechSection() {
 
   return (
     <section
+      ref={containerRef}
       id="technology"
-      className="relative w-full py-24 px-[4%] transition-colors duration-300 overflow-hidden dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]"
+      className={cn(
+        "relative w-full transition-colors duration-300 dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]",
+        isMobile ? "py-24 px-[4%]" : "h-[400vh]"
+      )}
     >
-      {/* Luminous Section Separator */}
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
-      <div className=" relative z-10">
+      {/* Sticky viewport wrapper */}
+      <div 
+        className={cn(
+          "w-full flex flex-col justify-center overflow-visible px-[4%]",
+          !isMobile ? "sticky top-0 min-h-screen py-12" : ""
+        )}
+      >
+        {/* Luminous Section Separator */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
+        <div className="relative z-10">
 
-        {/* ── Section Header ─────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-4 max-w-3xl mb-16">
-          <div>
-            <Badge variant="default">PROPRIETARY TECH STACK</Badge>
+          {/* ── Section Header ─────────────────────────────────────────────── */}
+          <div className="flex flex-col gap-4 max-w-3xl mb-16">
+            <div>
+              <Badge variant="default">PROPRIETARY TECH STACK</Badge>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] text-balance">
+              AI-powered molecular{" "}
+              <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
+                engineering engine.
+              </span>
+            </h2>
+
+            <p className="text-[1.12rem] text-slate-600 dark:text-slate-300 leading-relaxed">
+              From genomic sequence decoding to synthetic cell delivery in four integrated phases.
+            </p>
           </div>
 
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] text-balance">
-            AI-powered molecular{" "}
-            <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
-              engineering engine.
-            </span>
-          </h2>
+          {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-          <p className="text-[1.12rem] text-slate-600 dark:text-slate-300 leading-relaxed">
-            From genomic sequence decoding to synthetic cell delivery in four integrated phases.
-          </p>
-        </div>
+            {/* Left Column: Stage Selector Tabs (col-span-4) */}
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              {TECH_STAGES.map((stage, index) => {
+                const isActive = activeIndex === index;
+                const IconComponent = stage.icon;
 
-        {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => handleTabClick(index)}
+                    className={cn(
+                      "group relative p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer overflow-hidden",
+                      isActive
+                        ? [
+                            "bg-white shadow-lg border-teal-500/40 text-slate-900",
+                            "dark:bg-[#0D121F] dark:border-cyan-400/50 dark:text-white dark:shadow-[0_0_24px_rgba(0,242,254,0.15)]",
+                          ].join(" ")
+                        : [
+                            "bg-white/60 hover:bg-white border-slate-200/80 text-slate-600",
+                            "dark:bg-[#0A0D14]/50 dark:hover:bg-[#0D121F]/70 dark:border-white/5 dark:text-slate-400 dark:hover:text-slate-200",
+                          ].join(" ")
+                    )}
+                  >
+                    {/* Left accent indicator bar when active */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="active-tech-tab"
+                        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teal-500 to-blue-600 dark:from-cyan-400 dark:to-blue-500"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
 
-          {/* Left Column: Stage Selector Tabs (col-span-4) */}
-          <div className="lg:col-span-4 flex flex-col gap-3">
-            {TECH_STAGES.map((stage) => {
-              const isActive = activeStage.id === stage.id;
-              const IconComponent = stage.icon;
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={cn(
+                          "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors mt-0.5",
+                          isActive
+                            ? "bg-gradient-to-tr from-violet-600 to-cyan-500 dark:from-violet-500 dark:to-cyan-400 text-white font-bold shadow-md"
+                            : "bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white"
+                        )}
+                      >
+                        <IconComponent className="w-5 h-5" />
+                      </div>
 
-              return (
-                <button
-                  key={stage.id}
-                  onClick={() => setActiveStage(stage)}
-                  onMouseEnter={() => setActiveStage(stage)}
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono font-bold text-teal-600 dark:text-cyan-400">
+                            {stage.stepNumber}
+                          </span>
+                          <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white">
+                            {stage.title}
+                          </h3>
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                          {stage.shortDesc}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right Column: Active Stage Interactive Card (col-span-8) */}
+            <div className="lg:col-span-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStage.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
                   className={cn(
-                    "group relative p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer overflow-hidden",
-                    isActive
-                      ? [
-                          "bg-white shadow-lg border-teal-500/40 text-slate-900",
-                          "dark:bg-[#0D121F] dark:border-cyan-400/50 dark:text-white dark:shadow-[0_0_24px_rgba(0,242,254,0.15)]",
-                        ].join(" ")
-                      : [
-                          "bg-white/60 hover:bg-white border-slate-200/80 text-slate-600",
-                          "dark:bg-[#0A0D14]/50 dark:hover:bg-[#0D121F]/70 dark:border-white/5 dark:text-slate-400 dark:hover:text-slate-200",
-                        ].join(" ")
+                    "rounded-3xl p-8 border shadow-xl flex flex-col justify-between gap-8 relative overflow-hidden backdrop-blur-xl",
+                    "bg-white border-slate-200/90",
+                    "dark:bg-[#0D121F]/80 dark:border-white/10"
                   )}
                 >
-                  {/* Left accent indicator bar when active */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeTabIndicator"
-                      className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teal-500 to-blue-600 dark:from-cyan-400 dark:to-blue-500"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
+                  {/* Background soft ambient glow */}
+                  <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
 
-                  <div className="flex items-start gap-4">
-                    <div
-                      className={cn(
-                        "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors mt-0.5",
-                        isActive
-                          ? "bg-gradient-to-tr from-violet-600 to-cyan-500 dark:from-violet-500 dark:to-cyan-400 text-white font-bold shadow-md"
-                          : "bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white"
-                      )}
-                    >
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono font-bold text-teal-600 dark:text-cyan-400">
-                          {stage.stepNumber}
-                        </span>
-                        <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white">
-                          {stage.title}
-                        </h3>
+                  <div className="flex flex-col gap-4 relative z-10">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-teal-600 dark:text-cyan-400 bg-teal-500/10 dark:bg-cyan-400/10 px-3 py-1 rounded-full border border-teal-500/20 dark:border-cyan-400/20">
+                        PHASE {activeStage.stepNumber} // {activeStage.badge}
+                      </span>
+                      <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 font-mono">
+                        <span>Interactive Sandbox</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-snug">
-                        {stage.shortDesc}
-                      </p>
                     </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
 
-          {/* Right Column: Active Stage Interactive Card (col-span-8) */}
-          <div className="lg:col-span-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStage.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className={cn(
-                  "rounded-3xl p-8 border shadow-xl flex flex-col justify-between gap-8 relative overflow-hidden backdrop-blur-xl",
-                  "bg-white border-slate-200/90",
-                  "dark:bg-[#0D121F]/80 dark:border-white/10"
-                )}
-              >
-                {/* Background soft ambient glow */}
-                <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
+                    <h3 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                      {activeStage.title}
+                    </h3>
 
-                <div className="flex flex-col gap-4 relative z-10">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-teal-600 dark:text-cyan-400 bg-teal-500/10 dark:bg-cyan-400/10 px-3 py-1 rounded-full border border-teal-500/20 dark:border-cyan-400/20">
-                      PHASE {activeStage.stepNumber} // {activeStage.badge}
-                    </span>
-                    <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 font-mono">
-                      <span>Interactive Sandbox</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </div>
+                    <p className="text-slate-600 dark:text-slate-300 text-[0.9rem] leading-relaxed max-w-2xl">
+                      {activeStage.fullDesc}
+                    </p>
                   </div>
 
-                  <h3 className="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-                    {activeStage.title}
-                  </h3>
+                  {/* Live Micro-Widget Area */}
+                  <div className="relative z-10">
+                    {renderWidget(activeStage.id)}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-                  <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed max-w-2xl">
-                    {activeStage.fullDesc}
-                  </p>
-                </div>
-
-                {/* Live Micro-Widget Area */}
-                <div className="relative z-10">
-                  {renderWidget(activeStage.id)}
-                </div>
-              </motion.div>
-            </AnimatePresence>
           </div>
 
         </div>
-
       </div>
     </section>
   );

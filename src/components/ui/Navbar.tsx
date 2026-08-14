@@ -124,6 +124,7 @@ export function Navbar() {
             <ThemeToggle />
             <Button
               variant="primary"
+              onClick={() => scrollToSection("cta")}
               icon={<ArrowRight className="w-4 h-4" />}
               className="px-5 py-2 text-white font-semibold shadow-lg shadow-cyan-500/20"
             >
