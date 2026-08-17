@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useInView, animate, type Variants } from "framer-motion";
+import { motion, useInView, useSpring, useTransform, type Variants } from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
@@ -34,36 +34,32 @@ function AnimatedCounter({
   className,
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  // Trigger when 20 % of the section is in view
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
-  const [displayValue, setDisplayValue] = useState(
-    `${prefix}${from.toFixed(decimals)}${suffix}`
-  );
+  const isInView = useInView(ref, { once: true, amount: 0.35 });
+  const motionCount = useSpring(from, {
+    stiffness: decimals > 0 ? 55 : 40,
+    damping: 22,
+    restDelta: decimals > 0 ? 0.01 : 0.5,
+  });
 
   useEffect(() => {
     if (!isInView) return;
+    motionCount.set(to);
+  }, [isInView, motionCount, to]);
 
-    const controls = animate(from, to, {
-      duration: 1.8,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (latest) => {
-        if (decimals === 0) {
-          setDisplayValue(
-            `${prefix}${Math.floor(latest).toLocaleString()}${suffix}`
-          );
-        } else {
-          setDisplayValue(`${prefix}${latest.toFixed(decimals)}${suffix}`);
-        }
-      },
-    });
-
-    return () => controls.stop();
-  }, [isInView, from, to, decimals, prefix, suffix]);
+  const display = useTransform(motionCount, (latest) => {
+    if (decimals === 0) {
+      return `${prefix}${Math.round(latest).toLocaleString()}${suffix}`;
+    }
+    return `${prefix}${latest.toFixed(decimals)}${suffix}`;
+  });
 
   return (
-    <span ref={ref} className={cn("font-mono font-extrabold tabular-nums", className)}>
-      {displayValue}
-    </span>
+    <motion.span
+      ref={ref}
+      className={cn("inline-block font-mono font-extrabold tabular-nums", className)}
+    >
+      {display}
+    </motion.span>
   );
 }
 
@@ -342,7 +338,7 @@ export function ImpactSection() {
 
             {/* Right Column: Interactive Comparison Chart */}
             <div className="lg:col-span-6 p-6 rounded-2xl bg-slate-900/90 dark:bg-black/80 border border-slate-800 dark:border-white/10 text-white relative z-10 flex flex-col gap-5">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-start sm:items-center justify-between">
                 <span className="text-xs font-mono text-slate-400">DEVELOPMENT_DURATION_COMPARISON</span>
                 <span className="text-xs font-mono text-cyan-400 font-bold">15x FASTER ENTRY</span>
               </div>

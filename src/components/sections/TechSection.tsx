@@ -104,7 +104,7 @@ function MobileTechTabBar({
   onSelect: (index: number) => void;
 }) {
   return (
-    <div className="grid grid-cols-4 gap-1.5 mb-3 lg:hidden">
+    <div className="grid grid-cols-4 gap-1 mb-2 sm:mb-3 lg:hidden">
       {TECH_STAGES.map((stage, index) => {
         const IconComponent = stage.icon;
         const isActive = activeIndex === index;
@@ -115,17 +115,14 @@ function MobileTechTabBar({
             type="button"
             onClick={() => onSelect(index)}
             className={cn(
-              "flex flex-col items-center justify-center gap-1 rounded-lg border py-2 px-1 touch-manipulation transition-all duration-300",
+              "flex flex-col items-center justify-center gap-0.5 rounded-lg border py-1.5 px-1 touch-manipulation transition-all duration-300",
               isActive
                 ? "border-cyan-500/80 bg-slate-900/80 dark:bg-slate-900/80 shadow-[0_0_12px_rgba(34,211,238,0.35)] text-cyan-400"
                 : "border-slate-200/80 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/30 text-slate-500 opacity-80"
             )}
           >
-            <IconComponent className="w-3.5 h-3.5" />
-            <span className="text-[9px] font-mono font-bold">{stage.stepNumber}</span>
-            <span className="text-[8px] font-semibold leading-tight text-center line-clamp-1 w-full px-0.5">
-              {stage.title.split(" ")[0]}
-            </span>
+            <IconComponent className="w-3 h-3" />
+            <span className="text-[8px] font-mono font-bold">{stage.stepNumber}</span>
           </button>
         );
       })}
@@ -157,14 +154,14 @@ function Stage01Widget() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+    <div className="flex h-full flex-col gap-1 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-2 text-white">
       <div className="flex items-center justify-between shrink-0">
         <div className="flex items-center gap-1.5">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
           </span>
-          <span className="text-[10px] font-mono text-cyan-400 tracking-wider">LIVE_SEQUENCE_STREAM</span>
+          <span className="text-[9px] font-mono text-cyan-400 tracking-wider">LIVE_SEQ</span>
         </div>
         <button
           onClick={rescanSequence}
@@ -183,7 +180,7 @@ function Stage01Widget() {
             <div
               key={idx}
               className={cn(
-                "h-5 rounded flex items-center justify-center font-bold border",
+                "h-4 rounded flex items-center justify-center font-bold border text-[9px]",
                 isMotif
                   ? "bg-cyan-500/20 border-cyan-400 text-cyan-300"
                   : "bg-slate-800/80 border-slate-700/60 text-slate-300"
@@ -195,10 +192,9 @@ function Stage01Widget() {
         })}
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-slate-800 text-[9px] text-slate-400 font-mono shrink-0">
-        <span>Promoter: <span className="text-cyan-400">99.7%</span></span>
-        <span>Motif: <span className="text-emerald-400">POS_8-15</span></span>
-        <span className="text-slate-500">CONF: HIGH</span>
+      <div className="flex items-center justify-between gap-1 pt-1 border-t border-slate-800 text-[8px] text-slate-400 font-mono shrink-0">
+        <span>Prom: <span className="text-cyan-400">99.7%</span></span>
+        <span>Motif: <span className="text-emerald-400">8-15</span></span>
       </div>
     </div>
   );
@@ -210,7 +206,7 @@ function Stage02Widget() {
   const [foldProgress, setFoldProgress] = useState(94);
 
   return (
-    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+    <div className="flex h-full flex-col gap-1 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-2 text-white">
       <div className="flex items-center justify-between shrink-0">
         <span className="text-[10px] font-mono text-teal-400 tracking-wider">pLDDT_PRECISION</span>
         <span className="text-[10px] font-mono text-slate-400 flex items-center gap-1">
@@ -220,7 +216,7 @@ function Stage02Widget() {
 
       <div className="flex items-baseline justify-between shrink-0">
         <div>
-          <span className="font-heading text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+          <span className="font-heading text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
             {foldProgress.toFixed(1)}%
           </span>
           <span className="text-[10px] text-slate-400 ml-1.5 font-mono">pLDDT</span>
@@ -268,7 +264,7 @@ function Stage03Widget() {
   const [mode, setMode] = useState<"wild" | "auragen">("auragen");
 
   return (
-    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+    <div className="flex h-full flex-col gap-1 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-2 text-white">
       <div className="flex items-center justify-between shrink-0 gap-2">
         <span className="text-[10px] font-mono text-cyan-400 tracking-wider">OFF_TARGET_SIM</span>
         <div className="flex rounded-md bg-slate-800 p-0.5 border border-slate-700 shrink-0">
@@ -359,13 +355,13 @@ function Stage04Widget() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+    <div className="flex h-full flex-col gap-1 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-2 text-white">
       <div className="flex items-center justify-between shrink-0">
         <span className="text-[10px] font-mono text-teal-400 tracking-wider">LNP_TROPISM</span>
         <button
           onClick={triggerDelivery}
           disabled={delivering}
-          className="flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-gradient-to-r from-teal-500 to-blue-600 text-white transition-all cursor-pointer"
+          className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-gradient-to-r from-teal-500 to-blue-600 text-white transition-all cursor-pointer shrink-0"
         >
           <Sparkles className="w-3 h-3" />
           <span>{delivering ? "Fusing..." : "Simulate Uptake"}</span>
@@ -485,14 +481,14 @@ export function TechSection() {
       )}
     >
       {/* Sticky viewport wrapper — touch + desktop scroll pinning */}
-      <div className="sticky top-4 lg:top-0 h-[calc(100dvh-32px)] lg:h-screen w-full px-[4%] flex flex-col justify-center overflow-hidden py-2 lg:py-6">
+      <div className="sticky top-4 lg:top-0 h-[calc(100dvh-32px)] lg:h-screen w-full px-[4%] flex flex-col items-center justify-center overflow-hidden py-2 lg:py-6">
         {/* Luminous Section Separator */}
         <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
-        <div className="relative z-10">
+        <div className="relative z-10 w-full max-w-7xl mx-auto">
 
           {/* ── Section Header — fade-up on first viewport entry ────────── */}
           <motion.div
-            className="flex flex-col max-w-3xl mb-2 lg:mb-6"
+            className="flex flex-col max-w-3xl mb-2 sm:mb-4 lg:mb-6"
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20%" }}
@@ -502,14 +498,14 @@ export function TechSection() {
               <Badge variant="default">PROPRIETARY TECH STACK</Badge>
             </div>
 
-            <h2 className="font-heading text-xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-1 lg:mb-2">
+            <h2 className="font-heading text-lg sm:text-xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-1 lg:mb-2">
               AI-powered molecular{" "}
               <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
                 engineering engine.
               </span>
             </h2>
 
-            <p className="hidden sm:block text-sm text-slate-400 mb-3 lg:mb-6">
+            <p className="hidden sm:block text-xs sm:text-sm text-slate-400 mb-2 sm:mb-3 lg:mb-6">
               From genomic sequence decoding to synthetic cell delivery in four integrated phases.
             </p>
           </motion.div>
@@ -517,7 +513,7 @@ export function TechSection() {
           <MobileTechTabBar activeIndex={activeIndex} onSelect={handleTabClick} />
 
           {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-12 pb-0 lg:pb-20 gap-3 lg:gap-6 items-stretch">
 
             {/* Left Column: vertical tabs — desktop only */}
             <div className="hidden lg:flex lg:col-span-4 flex-col gap-2 lg:h-[420px]">
@@ -584,32 +580,36 @@ export function TechSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="flex flex-col justify-between h-[340px] sm:h-[400px] lg:h-[420px] rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/60 p-4 lg:p-6 relative overflow-hidden shadow-xl"
+                  className={cn(
+                    "flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/60 relative overflow-hidden shadow-xl",
+                    "h-[380px] max-h-[55dvh] p-4 sm:p-6",
+                    "lg:h-[420px] lg:max-h-none lg:p-6"
+                  )}
                 >
                   <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                  <div className="flex shrink-0 flex-col gap-2 relative z-10">
+                  <div className="flex shrink-0 flex-col gap-1 sm:gap-2 relative z-10 min-h-0">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded-full border border-cyan-500/30">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded-full border border-cyan-500/30 truncate">
                         PHASE {activeStage.stepNumber} // {activeStage.badge}
                       </span>
-                      <div className="flex items-center gap-1 text-[10px] text-slate-500 font-mono">
+                      <div className="hidden sm:flex items-center gap-1 text-[10px] text-slate-500 font-mono shrink-0">
                         <span>Interactive Sandbox</span>
                         <ArrowRight className="w-3 h-3" />
                       </div>
                     </div>
 
-                    <h3 className="font-heading text-base sm:text-lg lg:text-xl font-bold text-slate-900 dark:text-white line-clamp-1">
+                    <h3 className="font-heading text-sm sm:text-lg lg:text-xl font-bold text-slate-900 dark:text-white line-clamp-1">
                       {activeStage.title}
                     </h3>
 
-                    <p className="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs leading-relaxed line-clamp-2">
+                    <p className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs leading-snug line-clamp-2">
                       {activeStage.fullDesc}
                     </p>
                   </div>
 
                   {/* Sandbox — fixed height, pinned to bottom */}
-                  <div className="relative z-10 mt-auto h-[120px] sm:h-[140px] lg:h-[180px] w-full shrink-0">
+                  <div className="relative z-10 mt-auto h-[110px] sm:h-[140px] lg:h-[180px] w-full shrink-0">
                     {renderWidget(activeStage.id)}
                   </div>
                 </motion.div>
