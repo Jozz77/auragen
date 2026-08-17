@@ -112,3 +112,12 @@ h1, h2, h3, h4, h5, h6 {
 @utility border-gradient-violet-cyan {
   border-image: linear-gradient(to right, rgba(168,85,247,0.3), rgba(0,242,254,0.3)) 1;
 }
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
