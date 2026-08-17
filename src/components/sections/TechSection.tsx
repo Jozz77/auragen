@@ -1,7 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import React, { useState, useRef, useCallback } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
 import {
@@ -73,6 +79,59 @@ const TECH_STAGES: TechStage[] = [
     icon: Share2,
   },
 ];
+
+const STAGE_COUNT = TECH_STAGES.length;
+
+function progressToStageIndex(progress: number): number {
+  const segment = 1 / STAGE_COUNT;
+  let idx = Math.floor(progress / segment);
+  if (idx >= STAGE_COUNT) idx = STAGE_COUNT - 1;
+  if (idx < 0) idx = 0;
+  return idx;
+}
+
+function stageIndexToProgress(index: number): number {
+  return (index + 0.5) / STAGE_COUNT;
+}
+
+// ─── Mobile / Tablet horizontal tab bar ──────────────────────────────────────
+
+function MobileTechTabBar({
+  activeIndex,
+  onSelect,
+}: {
+  activeIndex: number;
+  onSelect: (index: number) => void;
+}) {
+  return (
+    <div className="grid grid-cols-4 gap-1.5 mb-3 lg:hidden">
+      {TECH_STAGES.map((stage, index) => {
+        const IconComponent = stage.icon;
+        const isActive = activeIndex === index;
+
+        return (
+          <button
+            key={stage.id}
+            type="button"
+            onClick={() => onSelect(index)}
+            className={cn(
+              "flex flex-col items-center justify-center gap-1 rounded-lg border py-2 px-1 touch-manipulation transition-all duration-300",
+              isActive
+                ? "border-cyan-500/80 bg-slate-900/80 dark:bg-slate-900/80 shadow-[0_0_12px_rgba(34,211,238,0.35)] text-cyan-400"
+                : "border-slate-200/80 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/30 text-slate-500 opacity-80"
+            )}
+          >
+            <IconComponent className="w-3.5 h-3.5" />
+            <span className="text-[9px] font-mono font-bold">{stage.stepNumber}</span>
+            <span className="text-[8px] font-semibold leading-tight text-center line-clamp-1 w-full px-0.5">
+              {stage.title.split(" ")[0]}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 // ─── Stage 01 Widget: Live DNA Sequence Stream ────────────────────────────────
 
@@ -358,107 +417,48 @@ function Stage04Widget() {
 // ─── Main TechSection Component ─────────────────────────────────────────────
 
 export function TechSection() {
-  const [isMobile, setIsMobile] = useState(false);
   const [scrollIndex, setScrollIndex] = useState(0);
-  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+  const [manualIndex, setManualIndex] = useState<number | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
   const prefersReducedMotion = useReducedMotion();
 
-  // Detect mobile viewport on mount/resize — debounced to avoid excessive re-renders
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    const handleResize = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        setIsMobile(window.innerWidth < 768);
-      }, 100);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", handleResize);
-    };
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (manualIndex !== null) return;
+    setScrollIndex(progressToStageIndex(progress));
+  });
+
+  const scrollToTab = useCallback((index: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const rect = container.getBoundingClientRect();
+    const containerTop = window.scrollY + rect.top;
+    const scrollableDistance = container.offsetHeight - window.innerHeight;
+    const targetProgress = stageIndexToProgress(index);
+    const targetScroll = containerTop + scrollableDistance * targetProgress;
+
+    window.scrollTo({ top: targetScroll, behavior: "smooth" });
   }, []);
 
-  // ── Desktop scroll-driven phase stepper ─────────────────────────────────────
-  // We use a native scroll listener + getBoundingClientRect() to get exact pixel
-  // measurements. The dead zone is expressed in PIXELS (65 % of the viewport
-  // height) so it is viewport-size-independent. Phase-switching only begins once
-  // the user has scrolled that many pixels past the section's pin point — i.e.
-  // roughly when the interactive grid area is near the top of the viewport.
-  useEffect(() => {
-    if (isMobile) return;
+  const handleTabClick = useCallback(
+    (index: number) => {
+      setManualIndex(index);
+      setScrollIndex(index);
+      scrollToTab(index);
+      window.setTimeout(() => setManualIndex(null), 800);
+    },
+    [scrollToTab]
+  );
 
-    const handleScroll = () => {
-      const el = containerRef.current;
-      if (!el) return;
-
-      const rect = el.getBoundingClientRect();
-      // rect.top > 0 → section hasn't pinned yet; skip.
-      if (rect.top > 0) {
-        setScrollIndex(0);
-        return;
-      }
-
-      // How many px the user has scrolled PAST the section's pin point.
-      const scrolledPx = Math.abs(rect.top);
-      const totalScrollPx = el.scrollHeight - window.innerHeight;
-
-      // Dead zone: wait until the user has scrolled 65% of the viewport height
-      // into the section. This corresponds approximately to the section header
-      // scrolling out of the "spotlight" and the interactive grid becoming
-      // the dominant element near the top of the viewport.
-      const DEAD_ZONE_PX = window.innerHeight * 0.65;
-
-      if (scrolledPx < DEAD_ZONE_PX) {
-        setScrollIndex(0);
-        return;
-      }
-
-      const activePx = scrolledPx - DEAD_ZONE_PX;
-      // Clamp to at least 1 to prevent division-by-zero on short viewports
-      const activeRangePx = Math.max(1, totalScrollPx - DEAD_ZONE_PX);
-      const adjusted = Math.min(activePx / activeRangePx, 1);
-
-      const total = TECH_STAGES.length;
-      let idx = Math.floor(adjusted * total);
-      if (idx >= total) idx = total - 1;
-      setScrollIndex(idx);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run once on mount in case page is already partially scrolled.
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
-
-  // Determine active stage index
-  const activeIndex = isMobile ? mobileActiveIndex : scrollIndex;
+  const activeIndex = scrollIndex;
   const activeStage = TECH_STAGES[activeIndex];
-
-  // Tab click handler with smooth scroll on desktop
-  const handleTabClick = (index: number) => {
-    if (isMobile) {
-      setMobileActiveIndex(index);
-      return;
-    }
-
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const sectionScrollTop = window.scrollY + rect.top;
-      const totalScrollPx = containerRef.current.scrollHeight - window.innerHeight;
-      const DEAD_ZONE_PX = window.innerHeight * 0.65;
-      const activeRangePx = totalScrollPx - DEAD_ZONE_PX;
-      const segmentPx = activeRangePx / TECH_STAGES.length;
-      // Target is the section's document-top + dead zone + the tab's segment offset.
-      const targetY = sectionScrollTop + DEAD_ZONE_PX + index * segmentPx + 10;
-
-      window.scrollTo({ top: targetY, behavior: "smooth" });
-    }
-  };
 
   const renderWidget = (stageId: string) => {
     switch (stageId) {
@@ -481,51 +481,46 @@ export function TechSection() {
       id="technology"
       className={cn(
         "relative w-full transition-colors duration-300 dark:bg-[#030508] bg-[#F8FAFC] [background-image:radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] dark:[background-image:linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] dark:[background-size:32px_32px]",
-        isMobile ? "py-12" : "h-[400vh]"
+        "h-[300vh] lg:h-[400vh]"
       )}
     >
-      {/* Sticky viewport wrapper */}
-      <div 
-        className={cn(
-          "w-full px-[4%]",
-          !isMobile
-            ? "sticky top-0 h-screen flex flex-col justify-center py-6 overflow-hidden"
-            : "flex flex-col justify-center py-12"
-        )}
-      >
+      {/* Sticky viewport wrapper — touch + desktop scroll pinning */}
+      <div className="sticky top-4 lg:top-0 h-[calc(100dvh-32px)] lg:h-screen w-full px-[4%] flex flex-col justify-center overflow-hidden py-2 lg:py-6">
         {/* Luminous Section Separator */}
         <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 dark:via-cyan-400/20 to-transparent absolute top-0 left-0 right-0" />
         <div className="relative z-10">
 
           {/* ── Section Header — fade-up on first viewport entry ────────── */}
           <motion.div
-            className="flex flex-col max-w-3xl"
+            className="flex flex-col max-w-3xl mb-2 lg:mb-6"
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20%" }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="mb-2">
+            <div className="mb-1 lg:mb-2">
               <Badge variant="default">PROPRIETARY TECH STACK</Badge>
             </div>
 
-            <h2 className="font-heading text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-2">
+            <h2 className="font-heading text-xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-1 lg:mb-2">
               AI-powered molecular{" "}
               <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
                 engineering engine.
               </span>
             </h2>
 
-            <p className="text-sm text-slate-400 mb-6">
+            <p className="hidden sm:block text-sm text-slate-400 mb-3 lg:mb-6">
               From genomic sequence decoding to synthetic cell delivery in four integrated phases.
             </p>
           </motion.div>
 
-          {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
+          <MobileTechTabBar activeIndex={activeIndex} onSelect={handleTabClick} />
 
-            {/* Left Column: All 4 tabs permanently mounted — static height */}
-            <div className="lg:col-span-4 flex flex-col gap-2 lg:h-[420px]">
+          {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 items-stretch">
+
+            {/* Left Column: vertical tabs — desktop only */}
+            <div className="hidden lg:flex lg:col-span-4 flex-col gap-2 lg:h-[420px]">
               {TECH_STAGES.map((stage, index) => {
                 const isActive = activeIndex === index;
                 const IconComponent = stage.icon;
@@ -589,7 +584,7 @@ export function TechSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="flex flex-col justify-between h-[380px] lg:h-[420px] rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/60 p-6 relative overflow-hidden shadow-xl"
+                  className="flex flex-col justify-between h-[340px] sm:h-[400px] lg:h-[420px] rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/60 p-4 lg:p-6 relative overflow-hidden shadow-xl"
                 >
                   <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -604,17 +599,17 @@ export function TechSection() {
                       </div>
                     </div>
 
-                    <h3 className="font-heading text-lg lg:text-xl font-bold text-slate-900 dark:text-white">
+                    <h3 className="font-heading text-base sm:text-lg lg:text-xl font-bold text-slate-900 dark:text-white line-clamp-1">
                       {activeStage.title}
                     </h3>
 
-                    <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed line-clamp-2">
+                    <p className="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs leading-relaxed line-clamp-2">
                       {activeStage.fullDesc}
                     </p>
                   </div>
 
                   {/* Sandbox — fixed height, pinned to bottom */}
-                  <div className="relative z-10 mt-auto h-[160px] lg:h-[180px] w-full shrink-0">
+                  <div className="relative z-10 mt-auto h-[120px] sm:h-[140px] lg:h-[180px] w-full shrink-0">
                     {renderWidget(activeStage.id)}
                   </div>
                 </motion.div>
