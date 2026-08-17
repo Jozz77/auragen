@@ -98,59 +98,48 @@ function Stage01Widget() {
   };
 
   return (
-    <div className="flex flex-col gap-5 p-6 rounded-2xl bg-slate-900/90 dark:bg-black/80 border border-slate-800 dark:border-white/10 text-white shadow-inner">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
+    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+      <div className="flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-1.5">
+          <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
           </span>
-          <span className="text-xs font-mono text-cyan-400 tracking-wider">LIVE_SEQUENCE_STREAM // 2.4TB/s</span>
+          <span className="text-[10px] font-mono text-cyan-400 tracking-wider">LIVE_SEQUENCE_STREAM</span>
         </div>
         <button
           onClick={rescanSequence}
           disabled={isScanning}
-          className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer"
+          className="flex items-center gap-1 text-[10px] text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer"
         >
-          <RefreshCw className={cn("w-3.5 h-3.5", isScanning && "animate-spin text-cyan-400")} />
-          <span>Rescan Motif</span>
+          <RefreshCw className={cn("w-3 h-3", isScanning && "animate-spin text-cyan-400")} />
+          <span>Rescan</span>
         </button>
       </div>
 
-      {/* Sequence grid display */}
-      <div className="grid grid-cols-8 sm:grid-cols-16 gap-1.5 font-mono text-sm py-2">
+      <div className="grid grid-cols-8 sm:grid-cols-16 gap-0.5 font-mono text-[10px] flex-1 min-h-0 content-center">
         {seq.map((base, idx) => {
           const isMotif = idx >= 8 && idx <= 15;
           return (
-            <motion.div
+            <div
               key={idx}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: idx * 0.015 }}
               className={cn(
-                "h-9 rounded-lg flex items-center justify-center font-bold border transition-all select-none",
+                "h-5 rounded flex items-center justify-center font-bold border",
                 isMotif
-                  ? "bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_10px_rgba(0,242,254,0.3)]"
+                  ? "bg-cyan-500/20 border-cyan-400 text-cyan-300"
                   : "bg-slate-800/80 border-slate-700/60 text-slate-300"
               )}
             >
               {base}
-            </motion.div>
+            </div>
           );
         })}
       </div>
 
-      {/* Metrics footer */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800 text-xs text-slate-300">
-        <div className="flex items-center gap-4">
-          <div className="px-2.5 py-1 rounded-md dark:bg-cyan-950/40 dark:border-cyan-500/40 border border-cyan-500/20 dark:text-cyan-300 font-mono">
-            Promoter Match: <span className="text-cyan-400 font-semibold">99.7%</span>
-          </div>
-          <div className="px-2.5 py-1 rounded-md dark:bg-emerald-950/40 dark:border-emerald-500/40 border border-emerald-500/20 dark:text-emerald-300 font-mono">
-            Enhancer Motif: <span className="text-emerald-400 font-semibold">POS_8-15</span>
-          </div>
-        </div>
-        <div className="text-slate-400 font-mono px-2 py-0.5 rounded border border-slate-700/60">MODEL_CONFIDENCE: HIGH</div>
+      <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-slate-800 text-[9px] text-slate-400 font-mono shrink-0">
+        <span>Promoter: <span className="text-cyan-400">99.7%</span></span>
+        <span>Motif: <span className="text-emerald-400">POS_8-15</span></span>
+        <span className="text-slate-500">CONF: HIGH</span>
       </div>
     </div>
   );
@@ -162,32 +151,30 @@ function Stage02Widget() {
   const [foldProgress, setFoldProgress] = useState(94);
 
   return (
-    <div className="flex flex-col gap-5 p-6 rounded-2xl bg-slate-900/90 dark:bg-black/80 border border-slate-800 dark:border-white/10 text-white">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-mono text-teal-400 tracking-wider">pLDDT_STRUCTURE_PRECISION</span>
-        <span className="text-xs font-mono text-slate-400 flex items-center gap-1">
-          <Sliders className="w-3.5 h-3.5" /> Drag fold resolution
+    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+      <div className="flex items-center justify-between shrink-0">
+        <span className="text-[10px] font-mono text-teal-400 tracking-wider">pLDDT_PRECISION</span>
+        <span className="text-[10px] font-mono text-slate-400 flex items-center gap-1">
+          <Sliders className="w-3 h-3" /> Drag
         </span>
       </div>
 
-      {/* Fold completion display */}
-      <div className="flex items-baseline justify-between py-1">
+      <div className="flex items-baseline justify-between shrink-0">
         <div>
-          <span className="font-heading text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+          <span className="font-heading text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
             {foldProgress.toFixed(1)}%
           </span>
-          <span className="text-xs text-slate-400 ml-2 font-mono">pLDDT Score</span>
+          <span className="text-[10px] text-slate-400 ml-1.5 font-mono">pLDDT</span>
         </div>
-        <div className="text-right">
-          <div className="text-xs text-emerald-400 font-bold flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5" /> High Confidence Alignment
+        <div className="text-right text-[10px]">
+          <div className="text-emerald-400 font-bold flex items-center gap-1">
+            <CheckCircle2 className="w-3 h-3" /> High Confidence
           </div>
-          <div className="text-[11px] text-slate-400 font-mono">RMSD: {(1.2 - (foldProgress / 100) * 0.5).toFixed(2)} Å</div>
+          <div className="text-slate-400 font-mono">RMSD: {(1.2 - (foldProgress / 100) * 0.5).toFixed(2)} Å</div>
         </div>
       </div>
 
-      {/* Interactive slider */}
-      <div className="space-y-2">
+      <div className="mt-auto space-y-1 shrink-0">
         <input
           type="range"
           min="40"
@@ -195,29 +182,22 @@ function Stage02Widget() {
           step="0.1"
           value={foldProgress}
           onChange={(e) => setFoldProgress(parseFloat(e.target.value))}
-          className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+          className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
         />
-        <div className="flex justify-between text-[10px] font-mono text-slate-500">
-          <span>40% (Coarse Alpha)</span>
-          <span>70% (High Confidence)</span>
-          <span>99.8% (Atomic Resolution)</span>
+        <div className="grid grid-cols-12 gap-0.5 h-3">
+          {Array.from({ length: 24 }).map((_, i) => {
+            const val = (i * 4 + foldProgress) % 100;
+            return (
+              <div
+                key={i}
+                className={cn(
+                  "h-full rounded-sm",
+                  val > 80 ? "bg-cyan-400" : val > 50 ? "bg-teal-500 opacity-70" : "bg-blue-600 opacity-40"
+                )}
+              />
+            );
+          })}
         </div>
-      </div>
-
-      {/* Simulated Residue Heatmap */}
-      <div className="grid grid-cols-12 gap-1 h-4">
-        {Array.from({ length: 24 }).map((_, i) => {
-          const val = (i * 4 + foldProgress) % 100;
-          return (
-            <div
-              key={i}
-              className={cn(
-                "h-full rounded-sm transition-colors duration-200",
-                val > 80 ? "bg-cyan-400" : val > 50 ? "bg-teal-500 opacity-70" : "bg-blue-600 opacity-40"
-              )}
-            />
-          );
-        })}
       </div>
     </div>
   );
@@ -229,83 +209,76 @@ function Stage03Widget() {
   const [mode, setMode] = useState<"wild" | "auragen">("auragen");
 
   return (
-    <div className="flex flex-col gap-5 p-6 rounded-2xl bg-slate-900/90 dark:bg-black/80 border border-slate-800 dark:border-white/10 text-white">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-mono text-cyan-400 tracking-wider">OFF_TARGET_CLEAVAGE_SIMULATION</span>
-        
-        {/* Toggle Switch */}
-        <div className="flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+      <div className="flex items-center justify-between shrink-0 gap-2">
+        <span className="text-[10px] font-mono text-cyan-400 tracking-wider">OFF_TARGET_SIM</span>
+        <div className="flex rounded-md bg-slate-800 p-0.5 border border-slate-700 shrink-0">
           <button
             onClick={() => setMode("wild")}
             className={cn(
-              "px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
-              mode === "wild"
-                ? "bg-slate-700 text-slate-200 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+              "px-2 py-0.5 rounded text-[10px] font-medium transition-all cursor-pointer",
+              mode === "wild" ? "bg-slate-700 text-slate-200" : "text-slate-400"
             )}
           >
-            Wild-Type Cas9
+            Wild-Type
           </button>
           <button
             onClick={() => setMode("auragen")}
             className={cn(
-              "px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
-              mode === "auragen"
-                ? "bg-cyan-500 text-slate-950 font-bold shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+              "px-2 py-0.5 rounded text-[10px] font-medium transition-all cursor-pointer",
+              mode === "auragen" ? "bg-cyan-500 text-slate-950 font-bold" : "text-slate-400"
             )}
           >
-            AuraGen Cas13+
+            Cas13+
           </button>
         </div>
       </div>
 
-      {/* Comparison Panel */}
-      <AnimatePresence mode="wait">
-        {mode === "wild" ? (
-          <motion.div
-            key="wild"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            className="p-4 rounded-xl bg-red-950/30 border border-red-500/30 flex flex-col gap-3"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-red-400 font-semibold text-xs">
-                <AlertCircle className="w-4 h-4" /> Bystander Off-Target Risk Detected
+      <div className="flex-1 min-h-0 overflow-hidden">
+        <AnimatePresence mode="wait">
+          {mode === "wild" ? (
+            <motion.div
+              key="wild"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="h-full p-2.5 rounded-lg bg-red-950/30 border border-red-500/30 flex flex-col justify-center gap-1.5"
+            >
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-red-400 font-semibold flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" /> Off-Target Risk
+                </span>
+                <span className="font-mono text-red-400 font-bold">4.20%</span>
               </div>
-              <span className="text-xs font-mono text-red-400 font-bold">4.20% Off-Target</span>
-            </div>
-            <div className="font-mono text-xs text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-red-500/20">
-              5&apos;- G A T C C <span className="text-red-400 underline font-bold bg-red-500/20 px-1">T A G C</span> C T A G A - 3&apos;
-              <div className="text-[10px] text-red-400 mt-1 font-sans">▲ Unintended cleavage at secondary loci 14 &amp; 18</div>
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="auragen"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 flex flex-col gap-3"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs">
-                <CheckCircle2 className="w-4 h-4" /> Single-Nucleotide Precision Verified
+              <div className="font-mono text-[9px] text-slate-300 bg-slate-950/60 p-2 rounded border border-red-500/20">
+                5&apos;- G A T C C <span className="text-red-400 font-bold">T A G C</span> C T A G A - 3&apos;
               </div>
-              <span className="text-xs font-mono text-emerald-400 font-bold">&lt; 0.01% Off-Target</span>
-            </div>
-            <div className="font-mono text-xs text-slate-300 bg-slate-950/60 p-3 rounded-lg border border-emerald-500/20">
-              5&apos;- G A T C C <span className="text-emerald-400 font-bold bg-emerald-500/20 px-1">C G A T</span> C T A G A - 3&apos;
-              <div className="text-[10px] text-emerald-400 mt-1 font-sans">✓ Zero off-target cleavage across whole-genome assay</div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="auragen"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="h-full p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 flex flex-col justify-center gap-1.5"
+            >
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" /> Precision Verified
+                </span>
+                <span className="font-mono text-emerald-400 font-bold">&lt; 0.01%</span>
+              </div>
+              <div className="font-mono text-[9px] text-slate-300 bg-slate-950/60 p-2 rounded border border-emerald-500/20">
+                5&apos;- G A T C C <span className="text-emerald-400 font-bold">C G A T</span> C T A G A - 3&apos;
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-      <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
-        <span>Target Locus: <span className="text-white font-mono">EXON_4_MUTATION</span></span>
-        <span>PAM Recognition: <span className="text-cyan-400 font-mono">NGG_VERIFIED</span></span>
+      <div className="flex items-center justify-between text-[9px] text-slate-400 font-mono shrink-0">
+        <span>Locus: <span className="text-white">EXON_4</span></span>
+        <span>PAM: <span className="text-cyan-400">NGG</span></span>
       </div>
     </div>
   );
@@ -327,61 +300,56 @@ function Stage04Widget() {
   };
 
   return (
-    <div className="flex flex-col gap-5 p-6 rounded-2xl bg-slate-900/90 dark:bg-black/80 border border-slate-800 dark:border-white/10 text-white">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-mono text-teal-400 tracking-wider">LIPID_NANOPARTICLE_TROPISM</span>
+    <div className="flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-white">
+      <div className="flex items-center justify-between shrink-0">
+        <span className="text-[10px] font-mono text-teal-400 tracking-wider">LNP_TROPISM</span>
         <button
           onClick={triggerDelivery}
           disabled={delivering}
-          className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-400 hover:to-blue-500 text-white transition-all cursor-pointer shadow-md"
+          className="flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-gradient-to-r from-teal-500 to-blue-600 text-white transition-all cursor-pointer"
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <Sparkles className="w-3 h-3" />
           <span>{delivering ? "Fusing..." : "Simulate Uptake"}</span>
         </button>
       </div>
 
-      {/* Visual LNP Shell Representation */}
-      <div className="relative h-28 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden">
-        {/* Outer lipid shell ring */}
+      <div className="relative flex-1 min-h-0 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden">
         <motion.div
           animate={{ scale: delivering ? [1, 1.15, 0.9, 1] : [1, 1.04, 1] }}
           transition={{ duration: delivering ? 1.2 : 3, repeat: delivering ? 0 : Infinity }}
           className={cn(
-            "w-20 h-20 rounded-full border-2 flex items-center justify-center transition-colors duration-500",
+            "w-14 h-14 rounded-full border-2 flex items-center justify-center transition-colors duration-500",
             delivered
-              ? "border-emerald-400 bg-emerald-500/10 shadow-[0_0_24px_rgba(16,185,129,0.4)]"
-              : "border-cyan-400/60 bg-cyan-500/10 shadow-[0_0_20px_rgba(0,242,254,0.2)]"
+              ? "border-emerald-400 bg-emerald-500/10"
+              : "border-cyan-400/60 bg-cyan-500/10"
           )}
         >
-          {/* Inner RNA payload particles */}
-          <div className="flex gap-1">
+          <div className="flex gap-0.5">
             <motion.div
-              animate={{ y: [0, -3, 0] }}
+              animate={{ y: [0, -2, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className={cn("w-2.5 h-2.5 rounded-full", delivered ? "bg-emerald-400" : "bg-cyan-400")}
+              className={cn("w-2 h-2 rounded-full", delivered ? "bg-emerald-400" : "bg-cyan-400")}
             />
             <motion.div
-              animate={{ y: [0, 3, 0] }}
+              animate={{ y: [0, 2, 0] }}
               transition={{ duration: 1.8, repeat: Infinity }}
-              className={cn("w-2.5 h-2.5 rounded-full", delivered ? "bg-teal-300" : "bg-blue-400")}
+              className={cn("w-2 h-2 rounded-full", delivered ? "bg-teal-300" : "bg-blue-400")}
             />
           </div>
         </motion.div>
-
-        {/* Pulse wave during delivery */}
         {delivering && (
           <motion.div
             initial={{ scale: 0.5, opacity: 1 }}
             animate={{ scale: 2.5, opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute w-24 h-24 rounded-full border-2 border-cyan-400"
+            className="absolute w-16 h-16 rounded-full border-2 border-cyan-400"
           />
         )}
       </div>
 
-      <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
-        <span>Tissue Tropism: <span className="text-white font-mono">HEPATIC_STELLATE</span></span>
-        <span>Cytosolic Release: <span className="text-emerald-400 font-mono font-bold">98.4%</span></span>
+      <div className="flex items-center justify-between text-[9px] text-slate-400 font-mono shrink-0">
+        <span>Tropism: <span className="text-white">HEPATIC</span></span>
+        <span>Release: <span className="text-emerald-400 font-bold">98.4%</span></span>
       </div>
     </div>
   );
@@ -519,8 +487,10 @@ export function TechSection() {
       {/* Sticky viewport wrapper */}
       <div 
         className={cn(
-          "w-full flex flex-col justify-center overflow-visible px-[4%]",
-          !isMobile ? "sticky top-0 min-h-screen py-24" : ""
+          "w-full px-[4%]",
+          !isMobile
+            ? "sticky top-0 h-screen flex flex-col justify-center py-6 overflow-hidden"
+            : "flex flex-col justify-center py-12"
         )}
       >
         {/* Luminous Section Separator */}
@@ -529,33 +499,33 @@ export function TechSection() {
 
           {/* ── Section Header — fade-up on first viewport entry ────────── */}
           <motion.div
-            className="flex flex-col gap-4 max-w-3xl mb-16"
+            className="flex flex-col max-w-3xl"
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20%" }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div>
+            <div className="mb-2">
               <Badge variant="default">PROPRIETARY TECH STACK</Badge>
             </div>
 
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.08] text-balance">
+            <h2 className="font-heading text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-2">
               AI-powered molecular{" "}
               <span className="bg-gradient-to-r from-violet-600 to-cyan-500 dark:from-violet-400 dark:via-cyan-400 dark:to-teal-300 bg-clip-text text-transparent">
                 engineering engine.
               </span>
             </h2>
 
-            <p className="text-[1.12rem] text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-sm text-slate-400 mb-6">
               From genomic sequence decoding to synthetic cell delivery in four integrated phases.
             </p>
           </motion.div>
 
           {/* ── Pipeline Showcase Layout (Grid) ─────────────────────────────── */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
 
-            {/* Left Column: Stage Selector Tabs (col-span-4) */}
-            <div className="lg:col-span-4 flex flex-col gap-3">
+            {/* Left Column: All 4 tabs permanently mounted — static height */}
+            <div className="lg:col-span-4 flex flex-col gap-2 lg:h-[420px]">
               {TECH_STAGES.map((stage, index) => {
                 const isActive = activeIndex === index;
                 const IconComponent = stage.icon;
@@ -565,49 +535,42 @@ export function TechSection() {
                     key={stage.id}
                     onClick={() => handleTabClick(index)}
                     className={cn(
-                      "group relative p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer overflow-hidden",
+                      "group relative flex-1 min-h-[72px] max-h-[100px] p-3 rounded-xl border text-left transition-colors duration-300 cursor-pointer overflow-hidden shrink-0",
                       isActive
-                        ? [
-                            "bg-white shadow-lg border-teal-500/40 text-slate-900",
-                            "dark:bg-[#0D121F] dark:border-cyan-400/50 dark:text-white dark:shadow-[0_0_24px_rgba(0,242,254,0.15)]",
-                          ].join(" ")
-                        : [
-                            "bg-white/60 hover:bg-white border-slate-200/80 text-slate-600",
-                            "dark:bg-[#0A0D14]/50 dark:hover:bg-[#0D121F]/70 dark:border-white/5 dark:text-slate-400 dark:hover:text-slate-200",
-                          ].join(" ")
+                        ? "border-cyan-500/80 bg-white dark:bg-slate-900/80 text-slate-900 dark:text-white shadow-[0_0_20px_rgba(34,211,238,0.15)]"
+                        : "border-slate-200/80 bg-white/50 dark:border-slate-800/60 dark:bg-slate-900/30 text-slate-500 dark:text-slate-400 opacity-80 hover:opacity-100"
                     )}
                   >
-                    {/* Left accent indicator bar when active */}
                     {isActive && (
                       <motion.div
                         layoutId="active-tech-tab"
-                        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teal-500 to-blue-600 dark:from-cyan-400 dark:to-blue-500"
+                        className="absolute left-0 top-0 bottom-0 w-0.5 bg-cyan-400"
                         transition={{ type: "spring", stiffness: 350, damping: 30 }}
                       />
                     )}
 
-                    <div className="flex items-start gap-4">
+                    <div className="flex h-full items-center gap-3">
                       <div
                         className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors mt-0.5",
+                          "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors",
                           isActive
-                            ? "bg-gradient-to-tr from-violet-600 to-cyan-500 dark:from-violet-500 dark:to-cyan-400 text-white font-bold shadow-md"
-                            : "bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white"
+                            ? "bg-gradient-to-tr from-violet-600 to-cyan-500 text-white"
+                            : "bg-slate-800 text-slate-500"
                         )}
                       >
-                        <IconComponent className="w-5 h-5" />
+                        <IconComponent className="w-4 h-4" />
                       </div>
 
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-mono font-bold text-teal-600 dark:text-cyan-400">
+                      <div className="flex min-w-0 flex-col justify-center">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] font-mono font-bold text-cyan-400 shrink-0">
                             {stage.stepNumber}
                           </span>
-                          <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white">
+                          <h3 className="font-heading font-bold text-sm text-inherit truncate">
                             {stage.title}
                           </h3>
                         </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-snug">
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug line-clamp-1">
                           {stage.shortDesc}
                         </p>
                       </div>
@@ -622,41 +585,36 @@ export function TechSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStage.id}
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
-                  className={cn(
-                    "rounded-3xl p-4 sm:p-8 border shadow-xl flex flex-col justify-between gap-8 relative overflow-hidden backdrop-blur-xl",
-                    "bg-white border-slate-200/90",
-                    "dark:bg-[#0D121F]/80 dark:border-white/10"
-                  )}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                  className="flex flex-col justify-between h-[380px] lg:h-[420px] rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/60 p-6 relative overflow-hidden shadow-xl"
                 >
-                  {/* Background soft ambient glow */}
-                  <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-                  <div className="flex flex-col gap-4 relative z-10">
-                    <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row items-start sm:items-center justify-between">
-                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-teal-600 dark:text-cyan-400 bg-teal-500/10 dark:bg-cyan-400/10 px-3 py-1 rounded-full border border-teal-500/20 dark:border-cyan-400/20">
+                  <div className="flex shrink-0 flex-col gap-2 relative z-10">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded-full border border-cyan-500/30">
                         PHASE {activeStage.stepNumber} // {activeStage.badge}
                       </span>
-                      <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 font-mono">
+                      <div className="flex items-center gap-1 text-[10px] text-slate-500 font-mono">
                         <span>Interactive Sandbox</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-3 h-3" />
                       </div>
                     </div>
 
-                    <h3 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                    <h3 className="font-heading text-lg lg:text-xl font-bold text-slate-900 dark:text-white">
                       {activeStage.title}
                     </h3>
 
-                    <p className="text-slate-600 dark:text-slate-300 text-[0.9rem] leading-relaxed max-w-2xl">
+                    <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed line-clamp-2">
                       {activeStage.fullDesc}
                     </p>
                   </div>
 
-                  {/* Live Micro-Widget Area */}
-                  <div className="relative z-10">
+                  {/* Sandbox — fixed height, pinned to bottom */}
+                  <div className="relative z-10 mt-auto h-[160px] lg:h-[180px] w-full shrink-0">
                     {renderWidget(activeStage.id)}
                   </div>
                 </motion.div>
